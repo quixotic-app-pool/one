@@ -1,0 +1,47 @@
+<template>
+  <view class="tab_box">
+      <tab @currentTab.user="getCurrentTab" :currentTab.sync="currentTab" :tabList.sync="tabList"></tab>
+  </view>
+  <xiaoxi wx:if="{{currentTab === 0}}"/>
+  <dongtai wx:else/>
+</template>
+
+<script>
+import wepy from 'wepy'
+import Tab from '../components/tab'
+import Xiaoxi from '../components/xiaoxi'
+import Dongtai from '../components/dongtai'
+
+export default class Message extends wepy.page {
+  data = {
+    list: [],
+    page: 1,
+    tabList: ['动态', '消息'],
+    currentTab: 0
+  }
+  components = {
+    tab: Tab,
+    xiaoxi: Xiaoxi,
+    dongtai: Dongtai
+  }
+  methods = {
+    getCurrentTab(cur, evt) {
+      this.currentTab = cur
+      console.log('currenttab is ' + cur)
+      this.$apply()
+    }
+  }
+}
+</script>
+
+<style lang="less">
+.tab_box {
+  background: #fff;
+  padding: 0 120px;
+  position: fixed;
+  padding:0 60px;
+  width: 100%;
+  z-index: 2;
+  border-bottom:1px solid #eee;
+}
+</style>

@@ -1,0 +1,147 @@
+<template>
+  <scroll-view
+    scroll-y="true"
+    bindscrolltolower="loadNext"
+    class="user">
+    <view class="blogs">
+      <navigator
+        wx:for="{{ blogs }}"
+        wx:for-item="item"
+        wx:key="{{ idx }}"
+        wx:for-index="idx"
+        url="/pages/detail?id={{ item.id }}"
+        open-type="navigate"
+        class="item-body">
+        <text class="item-body-content">{{ item.content }}</text>
+        <view class="item-body-images" wx:if="{{ item.images.length !== 0 }}">
+          <image
+            wx:for-item="image"
+            wx:for="{{ item.images }}"
+            wx:for-index="i"
+            wx:key="{{ i }}"
+            @tap.stop="viewPic({{ image }}, {{ item.images }})"
+            src="{{ image }}"
+            class="item-body-image"
+            mode="aspectFill">
+          </image>
+        </view>
+        <view
+          class="item-location"
+          wx:if="{{ item.location }}"
+          @tap.stop="showLocation({{ item.latitude }}, {{ item.longitude }})">
+          <image class="location-icon" src="../assets/svgs/location.svg"></image>
+          <text>{{ item.location }}</text>
+        </view>
+      </navigator>
+    </view>
+  </scroll-view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import { api } from '../config'
+import http from '../utils/request'
+import { dummy } from '../dummyData'
+
+export default class User extends wepy.component {
+  data = {
+    userinfo: {},
+    blogs: [],
+    page: 1
+  }
+
+  async onLoad () {
+    this.blogs = dummy.blogs
+    this.$apply()
+  }
+
+  methods = {
+    async loadNext () {
+      try {
+        const { data } = await http({
+          method: api.user.blog.method,
+          url: `${api.user.blog.url}?page=${this.page + 1}`
+        })
+
+        if (data.data.length !== 0) {
+          this.page++
+
+          this.blogs.push(...data.data)
+          this.$apply()
+        }
+      } catch (e) {
+        wepy.showModal({
+          title: '提示',
+          content: `加载数据出错，请截图本提示额。${e.message}`
+        })
+      }
+    }
+  }
+}
+</script>
+
+<style lang="less">
+.user {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  .blogs {
+    float: left;
+    width: 100%;
+
+    .item-body {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 5px 15px;
+      background: #FFF;
+      box-sizing: border-box;
+      overflow: hidden;
+
+      .item-body-content {
+        float: left;
+        width: 100%;
+        font-size: 16px;
+        line-height: 28px;
+        color: #333;
+        text-align: justify;
+      }
+
+      .item-body-images {
+        float: left;
+        width: 100%;
+        margin-top: 10px;
+
+        .item-body-image {
+          float: left;
+          width: 30%;
+          margin-right: 5px;
+          margin-top: 5px;
+          height: 110px;
+        }
+      }
+
+      .item-location {
+        float: left;
+        margin-top: 5px;
+        width: 250px;
+        height: 24px;
+
+        .location-icon {
+          width: 24px;
+          height: 24px;
+          vertical-align: middle;
+        }
+
+        text {
+          font-size: 10px;
+          line-height: 24px;
+          font-weight: bold;
+          color: grey;
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}
+</style>
