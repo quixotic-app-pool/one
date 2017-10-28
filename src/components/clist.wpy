@@ -49,14 +49,6 @@
               src="../assets/svgs/person-v.svg">
             </image>
           </view>
-          <text class="time-and-from">{{ item.time + ' 来自' + item.device }}</text>
-          <view
-            class="list-item-location"
-            wx:if="{{ item.location.locationName }}"
-            @tap.stop="showLocation({{ item.location.latitude }}, {{ item.location.longitude }})">
-            <image class="location-icon" src="../assets/svgs/location.svg"></image>
-            <text>{{ item.location.locationName }}</text>
-          </view>
         </view>
       </view>
       <!-- Blog Body -->
@@ -103,6 +95,18 @@
             src="../assets/svgs/more.svg"></image>
         </view>
       </view>
+      <view class="list-user list-user2">
+        <view class="list-user-info">
+          <text class="time-and-from">{{ item.time + ' 来自' + item.device }}</text>
+          <view
+            class="list-item-location"
+            wx:if="{{ item.location.locationName }}"
+            @tap.stop="showLocation({{ item.location.latitude }}, {{ item.location.longitude }})">
+            <image class="location-icon" src="../assets/svgs/location.svg"></image>
+            <text>{{ item.location.locationName }}</text>
+          </view>
+        </view>
+      </view>
     </navigator>
   </view>
 </template>
@@ -127,7 +131,7 @@ export default class Clist extends wepy.component {
     toggle: false
   }
   onLoad () {
-    this.imgWith = (this.sysWidth - 110) / 3
+    this.imgWith = (this.sysWidth - 130) / 3
   }
   methods = {
     showOptions () {
@@ -389,7 +393,9 @@ export default class Clist extends wepy.component {
       text-align: center;
       background: orange;
     }
-
+    .list-user2 {
+      margin-left: 40px;
+    }
     .list-user {
       width: 100%;
       overflow: hidden;
@@ -398,8 +404,8 @@ export default class Clist extends wepy.component {
         float: left;
 
         .avatar {
-          width: 35px;
-          height: 35px;
+          width: 45px;
+          height: 45px;
           border-radius: 3px;
         }
       }
@@ -415,7 +421,7 @@ export default class Clist extends wepy.component {
             float: left;
             margin-top: 5px;
             margin-right: 5px;
-            font-size: 12px;
+            font-size: 16px;
             font-weight: bold;
             line-height: 20px;
             color: rgb(35, 159, 100);
@@ -432,7 +438,7 @@ export default class Clist extends wepy.component {
         .time-and-from {
           float: left;
           margin-top: 2px;
-          font-size: 10px;
+          font-size: 12px;
           color: #777;
         }
 
@@ -440,7 +446,7 @@ export default class Clist extends wepy.component {
       .list-item-location {
         float: left;
         margin-left: 5px;
-        margin-top: -3px;
+        margin-top: -2px;
 
         .location-icon {
           width: 15px;
@@ -449,7 +455,7 @@ export default class Clist extends wepy.component {
         }
 
         text {
-          font-size: 10px;
+          font-size: 12px;
           line-height: 24px;
           font-weight: bold;
           color: grey;
@@ -462,14 +468,16 @@ export default class Clist extends wepy.component {
     /* body */
     .list-item-body {
       width: 90%;
-      padding: 0 0 0 45px;
+      position: relative;
+      top: -10px;
+      padding: 0 0 0 55px;
       box-sizing: border-box;
       overflow: hidden;
 
       .list-item-body-content {
         float: left;
         width: 100%;
-        font-size: 12px;
+        font-size: 16px;
         line-height: 28px;
         color: #333;
         text-align: justify;
@@ -491,20 +499,21 @@ export default class Clist extends wepy.component {
       width: 100%;
       padding-top: 5px;
       overflow: hidden;
-
+      .list-item-operation-like {
+        margin-left: 45px;
+      }
       .list-item-operation-like,
       .list-item-operation-comment,
       .list-item-operation-more {
         float: left;
         width: 40px;
-        margin-left: 35px;
         position: relative;
         text-align: center;
 
         .list-item-operation-icon {
           margin-right: 5px;
-          width: 15px;
-          height: 15px;
+          width: 20px;
+          height: 20px;
         }
 
         .number {
