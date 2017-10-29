@@ -1,0 +1,55 @@
+<template>
+  <view>
+    <view class="section-name">
+      {{ letter }}
+    </view>
+    <repeat for="{{ list }}" for-item="{{ item }}" key="{{ idx }}" for-index="idx">
+      <view class="section-item section-avatar-container">
+        <image
+          class="section-avatar"
+          src="../assets/svgs/avatar/avatar.svg">
+        </image>
+        <navigator open-type="switchTab" url="/pages/list">
+          {{ item.name }}
+        </navigator>
+      </view>
+    </repeat>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class Section extends wepy.component {
+  props = {
+    list: Object,
+    letter: String
+  }
+  data = {
+    isTest: false
+  }
+}
+</script>
+<style lang="less">
+  .section-name {
+    background-color: rgb(234, 234, 234);
+  }
+  .section-item {
+    background-color: #fff;
+  }
+  .section-avatar-container {
+    padding: 5px;
+    float: left;
+    width: 100%;
+    navigator {
+      float: left;
+      padding-left: 5px;
+    }
+    .section-avatar {
+      float: left;
+      width: 20px;
+      height: 20px;
+      border-radius: 3px;
+    }
+  }
+</style>
