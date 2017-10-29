@@ -34,6 +34,12 @@ export default class User extends wepy.page {
 </script>
 
 <style lang="less">
+.container {
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 16px;
+}
 .section-entry {
   margin-bottom: 16px;
   padding: 16px;
