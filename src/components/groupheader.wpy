@@ -52,7 +52,7 @@
 <script>
 import wepy from 'wepy'
 
-export default class Detail extends wepy.page {
+export default class Detail extends wepy.component {
   config = {
     navigationBarTitleText: '学生会'
   }

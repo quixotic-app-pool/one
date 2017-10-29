@@ -1,0 +1,18 @@
+<template>
+  <view>
+    act schedule
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class Detail extends wepy.page {
+  config = {
+    navigationBarTitleText: '学生会'
+  }
+
+  data = {
+    blog: {}
+  }
+}
+</script>
