@@ -1,0 +1,57 @@
+<template>
+  <header/>
+  <view class="g-tab_box">
+      <tab @currentTab.user="getCurrentTab" :currentTab.sync="currentTab" :tabList.sync="tabList"></tab>
+  </view>
+  <clist :list.sync="list" wx:if="{{currentTab === 0}}"/>
+  <dongtai wx:else/>
+</template>
+
+<script>
+import wepy from 'wepy'
+import header from '../components/groupheader'
+import Tab from '../components/tab'
+import clist from '../components/clist'
+import { dummy } from '../dummyData'
+import Dongtai from '../components/dongtai'
+
+export default class Detail extends wepy.page {
+  config = {
+    navigationBarTitleText: '学生会'
+  }
+
+  data = {
+    blog: {},
+    currentTab: 0,
+    tabList: ['动态', '活动'],
+    list: []
+  }
+  components = {
+    header: header,
+    tab: Tab,
+    clist: clist,
+    dongtai: Dongtai
+  }
+  methods = {
+    getCurrentTab(cur, evt) {
+      this.currentTab = cur
+      console.log('currenttab is ' + cur)
+      this.$apply()
+    }
+  }
+  onLoad () {
+    this.list = dummy.list
+    this.$apply()
+  }
+}
+</script>
+<style lang="less">
+.g-tab_box {
+  background: #fff;
+  padding: 0 120px;
+  padding:0 60px;
+  width: 100%;
+  z-index: 2;
+  border-bottom:1px solid #eee;
+}
+</style>

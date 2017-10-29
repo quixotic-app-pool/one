@@ -19,26 +19,26 @@
 8 silly mapToRegistry uri http://registry.npm.taobao.org/wepy-cli
 9 verbose request uri http://registry.npm.taobao.org/wepy-cli
 10 verbose request no auth needed
-11 info attempt registry request try #1 at 5:37:37 PM
-12 verbose request id dd6e4ef48ef4e0fd
+11 info attempt registry request try #1 at 3:13:14 PM
+12 verbose request id 964f4d1118f5a3cc
 13 http request GET http://registry.npm.taobao.org/wepy-cli
 14 http 200 http://registry.npm.taobao.org/wepy-cli
 15 verbose headers { server: 'nginx/1.4.6 (Ubuntu)',
-15 verbose headers   date: 'Sat, 28 Oct 2017 09:37:26 GMT',
+15 verbose headers   date: 'Sun, 29 Oct 2017 07:13:09 GMT',
 15 verbose headers   'content-type': 'application/json; charset=utf-8',
 15 verbose headers   'transfer-encoding': 'chunked',
 15 verbose headers   connection: 'keep-alive',
 15 verbose headers   'x-current-requests': '1',
-15 verbose headers   'x-readtime': '50',
+15 verbose headers   'x-readtime': '27',
 15 verbose headers   'content-encoding': 'gzip' }
 16 silly get cb [ 200,
 16 silly get   { server: 'nginx/1.4.6 (Ubuntu)',
-16 silly get     date: 'Sat, 28 Oct 2017 09:37:26 GMT',
+16 silly get     date: 'Sun, 29 Oct 2017 07:13:09 GMT',
 16 silly get     'content-type': 'application/json; charset=utf-8',
 16 silly get     'transfer-encoding': 'chunked',
 16 silly get     connection: 'keep-alive',
 16 silly get     'x-current-requests': '1',
-16 silly get     'x-readtime': '50',
+16 silly get     'x-readtime': '27',
 16 silly get     'content-encoding': 'gzip' } ]
 17 verbose get saving wepy-cli to /Users/mymac/.npm/registry.npm.taobao.org/wepy-cli/.cache.json
 18 verbose correctMkdir /Users/mymac/.npm correctMkdir not in flight; initializing
