@@ -1,7 +1,39 @@
 <template>
-  <view>
-    act detail
+  <view class="act-detail-container">
+    <view class="ad-title">
+      <text class="at-left">{{title}}</text>
+      <text class="at-right">{{status}}</text>
+    </view>
+    <view class="ad-date">
+      <image class="ad-icon" src="../assets/icons/time.png"/>
+      <text>{{date}}</text>
+    </view>
+    <view class="ad-location">
+      <image class="ad-icon" src="../assets/icons/location.png"/>
+      <text>{{location}}</text>
+    </view>
+    <map id="map" longitude="113.324520" latitude="23.099994" scale="14" markers="{{markers}}" show-location style="width: 100%; height: 150px;"></map>
+    <view class="add-title">
+      <text>活动详情</text>
+    </view>
+    <view>
+      <text>
+        {{activitydetail}}
+      </text>
+    </view>
   </view>
+  <navigator class="ad-join" open-type="navigate">
+    <view class="ad-join-num">
+      <text>{{joinNum}} 人参与</text>
+    </view>
+    <view class="ad-join-avatar">
+      <repeat for="{{joinAvatar}}" for-item="item" for-index="index">
+        <image class="ada-icon" style="right: {{-(alength - index -1) * 10}}px" src="{{item}}"/>
+      </repeat>
+      <text class="float:right;"> ></text>
+    </view>
+
+  </navigator>
 </template>
 
 <script>
@@ -12,7 +44,84 @@ export default class Detail extends wepy.page {
   }
 
   data = {
-    blog: {}
+    blog: {},
+    title: '职业发展协会演讲比赛',
+    date: '2017年10月22日（周日）04：30',
+    location: '南京市山畔水榭花苑西南（杨村二路）',
+    activitydetail: '话说这次活动那真是隆重，震惊四方，各路武林豪杰悉数登场！',
+    status: '进行中',
+    joinNum: 8,
+    joinAvatar: ['../assets/svgs/avatar/avatar.svg', '../assets/svgs/avatar/avatar.svg', '../assets/svgs/avatar/avatar.svg', '../assets/svgs/avatar/avatar.svg'],
+    alength: 0
+  }
+  onLoad () {
+    this.alength = (this.joinAvatar).length
   }
 }
 </script>
+<style lang="less">
+.act-detail-container {
+  padding: 10px;
+  background-color: #fff;
+}
+.ad-title {
+  font-size: 16px;
+  padding-bottom: 10px;
+  border-bottom:1px solid #eee;
+}
+.at-right {
+  background-color: rgb(54, 269, 101);
+  border-radius: 2px;
+  font-size: 10px;
+  padding: 3px;
+  float: right;
+}
+.ad-date {
+  padding-top: 15px;
+}
+.ad-date, .ad-location {
+  font-size: 14px;
+  text {
+    padding-left: 2px;
+    position: relative;
+    top: -4px;
+  }
+}
+.ad-location {
+  padding-bottom: 10px;
+}
+.add-title {
+  padding-top: 30px;
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.7;
+}
+.ad-join {
+  margin: 10px 0 10px 0;
+  background-color: #fff;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+}
+.ad-icon {
+  width: 20px;
+  height: 20px;
+}
+.ada-icon {
+  width: 30px;
+  height: 30px;
+  position: relative;
+}
+.ad-join-num {
+  float: left;
+  padding-left: 10px;
+}
+.ad-join-avatar {
+  float: right;
+  padding-right: 10px;
+  image {
+    position: relative;
+    top: 8px;
+  }
+}
+</style>

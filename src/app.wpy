@@ -6,12 +6,12 @@ export default class extends wepy.app {
   config = {
     pages: [
       // 'pages/index',
-      'pages/newactivity',
-      'pages/new',
+      // 'pages/newactivity',
+      // 'pages/new',
       // 'pages/activityschedule',
-      // 'pages/activitydetail',
-      'pages/group',
-      'pages/innercampus',
+      'pages/activitydetail',
+      // 'pages/group',
+      // 'pages/innercampus',
       'pages/sections',
       'pages/list',
       'pages/message',
