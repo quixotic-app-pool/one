@@ -8,8 +8,7 @@
       class="newBtn">
       <image src="../assets/svgs/write.svg" class="newBtn-icon"></image>
     </navigator> -->
-
-      <floatingbtn />
+    <floatingbtn />
     <navigator
       wx:for="{{ list }}"
       wx:for-item="item"
