@@ -28,10 +28,10 @@ export default class Floatingbtn extends wepy.component {
   }
   methods = {
     longpress() {
-      console.log("long press")
+      console.log('long press')
       wepy.pageScrollTo({
-      scrollTop: 0
-    })
+        scrollTop: 0
+      })
     },
     showOptions () {
       if (this.toggle) {
