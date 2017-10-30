@@ -9,21 +9,7 @@
       <image src="../assets/svgs/write.svg" class="newBtn-icon"></image>
     </navigator> -->
 
-      <button class="newBtn" @tap.stop="showOptions">
-        <image src="../assets/svgs/write.svg" class="newBtn-icon"></image>
-      </button>
-      <navigator url="/pages/new" animation="{{animationData1}}" class="newBtn newBtn-nav newBtn-nav1">
-        <text class="nb-title1">发布新帖</text>
-        <image src="../assets/svgs/write.svg" class="newBtn-icon"></image>
-      </navigator>
-      <navigator url="/pages/new" animation="{{animationData2}}" class="newBtn newBtn-nav newBtn-nav2">
-        <text class="nb-title1">更换时区</text>
-        <image src="../assets/svgs/write.svg" class="newBtn-icon"></image>
-      </navigator>
-      <navigator url="/pages/new" animation="{{animationData3}}" class="newBtn newBtn-nav newBtn-nav3">
-        <text class="nb-title1">反馈</text>
-        <image src="../assets/svgs/write.svg" class="newBtn-icon"></image>
-      </navigator>
+      <floatingbtn />
     <navigator
       wx:for="{{ list }}"
       wx:for-item="item"
@@ -118,6 +104,7 @@
 import wepy from 'wepy'
 import http from '../utils/request'
 import { api } from '../config'
+import floatingbtn from './floatingbtn'
 
 export default class Clist extends wepy.component {
   props = {
@@ -127,63 +114,15 @@ export default class Clist extends wepy.component {
   data = {
     isTest: false,
     sysWidth: wepy.getSystemInfoSync().windowWidth,
-    imgWith: 0,
-    animationData1: {},
-    animationData2: {},
-    animationData3: {},
-    toggle: false
+    imgWith: 0
+  }
+  components = {
+    floatingbtn: floatingbtn
   }
   onLoad () {
     this.imgWith = (this.sysWidth - 130) / 3
   }
   methods = {
-    showOptions () {
-      if (this.toggle) {
-        var animation = wepy.createAnimation({
-          duration: 1000,
-          timingFunction: 'ease'
-        })
-        animation.translate(225, 0).step({ duration: 0 })
-        this.animationData1 = animation.export()
-
-        animation = wepy.createAnimation({
-          duration: 1000,
-          timingFunction: 'ease'
-        })
-        animation.translate(225, 0).step({ duration: 0 })
-        this.animationData2 = animation.export()
-
-        animation = wepy.createAnimation({
-          duration: 1000,
-          timingFunction: 'ease'
-        })
-        animation.translate(225, 0).step({ duration: 0 })
-        this.animationData3 = animation.export()
-      } else {
-        animation = wepy.createAnimation({
-          duration: 1000,
-          timingFunction: 'ease'
-        })
-        animation.translate(-225, 0).step({ duration: 0 })
-        this.animationData1 = animation.export()
-
-        animation = wepy.createAnimation({
-          duration: 1000,
-          timingFunction: 'ease'
-        })
-        animation.translate(-225, 0).step({ duration: 0 })
-        this.animationData2 = animation.export()
-
-        animation = wepy.createAnimation({
-          duration: 1000,
-          timingFunction: 'ease'
-        })
-        animation.translate(-225, 0).step({ duration: 0 })
-        this.animationData3 = animation.export()
-      }
-      this.$apply()
-      this.toggle = !this.toggle
-    },
     /**
      * 查看大图
      * @param {String} cur 当前展示图片
@@ -309,6 +248,7 @@ export default class Clist extends wepy.component {
   top:10px;
   background-color: gold;
   border-radius: 5px;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.4);
 }
 .list-container {
   width: 100%;

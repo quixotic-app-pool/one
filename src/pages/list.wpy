@@ -11,13 +11,7 @@
           <image src="../assets/svgs/close-ad.svg"></image>
         </view>
       </view> -->
-      <swiper indicator-dots="false" autoplay="true" interval="5000" duration="1000">
-        <block wx:for="{{imgUrls}}">
-          <swiper-item>
-            <image src="{{item}}" style="width: {{sysWidth}}px" height="100"/>
-          </swiper-item>
-        </block>
-      </swiper>
+      <customswiper />
       <clist :list.sync="list"></clist>
     </view>
   </view>
@@ -30,6 +24,7 @@ import store from '../store'
 import { api } from '../config'
 import http from '../utils/request'
 import { dummy } from '../dummyData'
+import Customswiper from '../components/swiper'
 
 export default class List extends wepy.page {
   data = {
@@ -48,7 +43,8 @@ export default class List extends wepy.page {
   }
 
   components = {
-    clist
+    clist: clist,
+    customswiper: Customswiper
   }
 
   methods = {
