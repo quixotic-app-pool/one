@@ -5,12 +5,19 @@
     </view>
     <repeat for="{{ list }}" for-item="{{ item }}" key="{{ idx }}" for-index="idx">
       <view class="section-item section-avatar-container">
-        <image
-          class="section-avatar"
-          src="../assets/svgs/avatar/avatar.svg">
-        </image>
-        <navigator open-type="switchTab" url="/pages/list">
-          {{ item.name }}
+        <view style="float: left; width: 10%;">
+          <image
+            class="section-avatar"
+            src="../assets/svgs/avatar/avatar.svg">
+          </image>
+        </view>
+        <navigator class="sec-nav" open-type="switchTab" url="/pages/list">
+          <view class="sec-name">
+            {{ item.name }}
+          </view>
+          <view class="sec-other">
+            <text>相关部门</text>
+          </view>
         </navigator>
       </view>
     </repeat>
@@ -37,6 +44,26 @@ export default class Section extends wepy.component {
   .section-item {
     background-color: #fff;
   }
+  .sec-name {
+    float: left;
+    width: 50%;
+    background-color: #0a7cdf;
+    transform: skewY(-1.5deg);
+    border-radius: 3px;
+  }
+  .sec-other {
+    float: right;
+    width: 50%;
+    background-color: #fd720f;
+    transform: skewY(-1.5deg);
+    border-radius: 3px;
+  }
+  .sec-nav {
+    width: 90%;
+    position: relative;
+    text-align: center;
+    font-size: 16px;
+  }
   .section-avatar-container {
     padding: 5px;
     float: left;
@@ -47,8 +74,8 @@ export default class Section extends wepy.component {
     }
     .section-avatar {
       float: left;
-      width: 20px;
-      height: 20px;
+      width: 30px;
+      height: 30px;
       border-radius: 3px;
     }
   }
