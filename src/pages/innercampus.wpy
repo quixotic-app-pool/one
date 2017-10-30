@@ -1,34 +1,54 @@
 <template>
   <view class="container">
-  <view wx:for-index="itemIndex" wx:for="{{entries}}" wx:key="unique">
-    <!-- 为 wx:for 循环指定 wx:for-index，才能进入正确的详情页 -->
-    <!-- <view class="entry-meta" wx:if="{{item.meta}}">
-      <view wx:if="{{item.meta.collectionDate}}">
-        <text class="meta">{{item.meta.collectionDate}}</text>
+    <view class="inner-kyomi">
+      <view class="kyomi-half kyomi-left">
+        <view class="inner-bar inner-1" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('http://i.imgur.com/RRUe0Mo.png');">
+          <view class="inner-title">小秘密</view>
+        </view>
+        <view class="inner-bar inner-2" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('http://i.imgur.com/RRUe0Mo.png');">
+          <view class="inner-title">失物招领</view>
+        </view>
       </view>
-    </view> -->
-    <navigator url="../entry/entry?index={{itemIndex}}">
-      <view class="section section-entry" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('{{item.imageUrl}}');">
-        <view class="section-speak">{{item.speak}}</view>
-        <view class="section-title">{{item.title}}</view>
+      <view class="kyomi-half">
+        <view class="inner-bar inner-3" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('http://i.imgur.com/RRUe0Mo.png');">
+          <view class="inner-title">体育活动</view>
+        </view>
+        <view class="inner-bar inner-4" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('http://i.imgur.com/RRUe0Mo.png');">
+          <view class="inner-title">读书会</view>
+        </view>
       </view>
-    </navigator>
-  </view>
+    </view>
+    <view class="inner-other">
+      <navigator>
+        <view class="inner-bar innero-1" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('http://i.imgur.com/RRUe0Mo.png');">
+          <view class="innero-text">
+            <view class="inner-title">兴趣部落</view>
+            <view class="inner-desc">好玩的同校兴趣小组在等你额</view>
+          </view>
+        </view>
+      </navigator>
+      <navigator>
+        <view class="inner-bar innero-2" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('http://i.imgur.com/RRUe0Mo.png');">
+          <view class="innero-text">
+            <view class="inner-title">校内社团</view>
+            <view class="inner-desc">好玩的同校社团在等你额</view>
+          </view>
+        </view>
+      </navigator>
+    </view>
 </view>
 
 </template>
 
 <script>
 import wepy from 'wepy'
-import entries from '../entries'
 
-export default class User extends wepy.page {
-  data = {
-    userinfo: {},
-    entries: entries.data
+export default class Shetuan extends wepy.page {
+  config = {
+    navigationBarTitleText: '校内公告栏'
   }
-  onLoad () {
-    console.log(this.entries)
+  data = {
+    userinfo: {}
   }
 }
 </script>
@@ -40,42 +60,69 @@ export default class User extends wepy.page {
   box-sizing: border-box;
   padding: 16px;
 }
-.section-entry {
-  margin-bottom: 16px;
-  padding: 16px;
+.inner-bar {
+  margin-bottom: 10px;
   color: #ffffff;
   background-attachment: scroll;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  text-align: center;
   border-radius: 4px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, .1);
+  height: 80px;
 }
-.section-entry:active {
+.inner-bar:active {
   box-shadow: 0 4px 16rpx rgba(0, 0, 0, .1);
 }
-.section-speak {
-  overflow: hidden;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 1.5;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.section-title {
-  overflow: hidden;
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 1.5;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.entry-meta {
-  margin-bottom: 4px;
-  text-align: center;
-  color: #b0bec5;
-  font-size: 12px;
-}
 
+.inner-title {
+  font-size: 16px;
+  font-weight: 400;
+}
+.inner-desc {
+  font-size: 12px;
+  opacity: 0.8;
+}
+.inner-kyomi {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.kyomi-left {
+  margin-right: 10px;
+}
+.kyomi-half {
+  width: 48%;
+  float: left;
+}
+.inner-other {
+  clear: both;
+}
+.inner-1 {
+  height: 120px;
+  line-height: 120px;
+}
+.inner-2 {
+  height: 80px;
+  line-height: 80px;
+}
+.inner-3 {
+  height: 60px;
+  line-height: 60px;
+}
+.inner-4 {
+  height: 140px;
+  line-height: 140px;
+}
+.innero-1, .innero-2 {
+  padding-left: 20px;
+}
+.innero-text {
+  position: relative;
+  top: 20px;
+}
 </style>
