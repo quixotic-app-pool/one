@@ -240,74 +240,9 @@ export default class Clist extends wepy.component {
 </script>
 
 <style lang="less">
-.nb-title1 {
-  right:50px;
-  position:absolute;
-  width:80px;
-  top:10px;
-  background-color: gold;
-  border-radius: 5px;
-  box-shadow: 0 2px 3px rgba(0,0,0,0.4);
-}
 .list-container {
   width: 100%;
   margin-bottom: 60px;
-  .float-btn {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    width: 60px;
-    height: 60px;
-    background: #FA6570;
-    border-radius: 50%;
-    text-align: center;
-    box-shadow: 0 2px 3px rgba(0,0,0,0.4);
-    transition: all 150ms ease;
-    z-index: 100;
-  }
-  /* new btn */
-  .newBtn {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    width: 50px;
-    height: 50px;
-    background: #FA6570;
-    border-radius: 50%;
-    text-align: center;
-    box-shadow: 0 2px 3px rgba(0,0,0,0.4);
-    transition: all 150ms ease;
-    z-index: 100;
-
-    .newBtn-icon {
-      margin-top: 10px;
-      width: 20px;
-      height: 20px;
-    }
-  }
-  .newBtn-nav {
-    // right: -100px;
-    width: 40px;
-    height: 40px;
-    right: -200px;
-  }
-  .newBtn-nav1 {
-    bottom: 90px;
-  }
-  .newBtn-nav2 {
-    bottom: 140px;
-  }
-  .newBtn-nav3 {
-    bottom: 190px;
-  }
-  .newBtn-opacity {
-    opacity: 0;
-  }
-
-  .newBtn-hover {
-    background: #D75760;
-    box-shadow: 0 1px 2px rgba(0,0,0,.2);
-  }
 
   .list-item {
     position: relative;

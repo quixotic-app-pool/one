@@ -1,48 +1,55 @@
 <template>
-  <view class="act-detail-container">
-    <view class="ad-title">
-      <text class="at-left">{{title}}</text>
-      <text class="at-right">{{status}}</text>
-    </view>
-    <view class="ad-date">
-      <image class="ad-icon" src="../assets/icons/time.png"/>
-      <text>{{date}}</text>
-    </view>
-    <view class="ad-location">
-      <image class="ad-icon" src="../assets/icons/location.png"/>
-      <text>{{location}}</text>
-    </view>
-    <map id="map" longitude="113.324520" latitude="23.099994" scale="14" markers="{{markers}}" show-location style="width: 100%; height: 150px;"></map>
-    <view class="add-title">
-      <text>活动详情</text>
-    </view>
-    <view>
-      <text>
-        {{activitydetail}}
-      </text>
-    </view>
+  <scroll-view class="ad-scroll-container" scroll-y bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+      <view class="act-detail-container">
+        <view class="ad-title">
+          <text class="at-left">{{title}}</text>
+          <text class="at-right">{{status}}</text>
+        </view>
+        <view class="ad-date">
+          <image class="ad-icon" src="../assets/icons/time.png"/>
+          <text>{{date}}</text>
+        </view>
+        <view class="ad-location">
+          <image class="ad-icon" src="../assets/icons/location.png"/>
+          <text>{{location}}</text>
+        </view>
+        <map id="map" longitude="113.324520" latitude="23.099994" scale="14" markers="{{markers}}" show-location style="width: 100%; height: 150px;"></map>
+        <view class="add-title">
+          <text>活动详情</text>
+        </view>
+        <view>
+          <text>
+            {{activitydetail}}
+          </text>
+        </view>
+      </view>
+      <navigator class="ad-join" open-type="navigate">
+        <view class="ad-join-num">
+          <text>{{joinNum}} 人参与</text>
+        </view>
+        <view class="ad-join-avatar">
+          <repeat for="{{joinAvatar}}" for-item="item" for-index="index">
+            <image class="ada-icon" style="right: {{-(alength - index -1) * 10}}px" src="{{item}}"/>
+          </repeat>
+          <text class="float:right;"> ></text>
+        </view>
+      </navigator>
+      <comment/>
+  </scroll-view>
+  <view>
+    <floatingbtn/>
   </view>
-  <navigator class="ad-join" open-type="navigate">
-    <view class="ad-join-num">
-      <text>{{joinNum}} 人参与</text>
-    </view>
-    <view class="ad-join-avatar">
-      <repeat for="{{joinAvatar}}" for-item="item" for-index="index">
-        <image class="ada-icon" style="right: {{-(alength - index -1) * 10}}px" src="{{item}}"/>
-      </repeat>
-      <text class="float:right;"> ></text>
-    </view>
-
-  </navigator>
 </template>
 
 <script>
 import wepy from 'wepy'
+import comment from '../components/comments'
+import floatingbtn from '../components/floatingbtn'
+
 export default class Detail extends wepy.page {
   config = {
     navigationBarTitleText: '活动细节'
   }
-
   data = {
     blog: {},
     title: '职业发展协会演讲比赛',
@@ -54,18 +61,25 @@ export default class Detail extends wepy.page {
     joinAvatar: ['../assets/svgs/avatar/avatar.svg', '../assets/svgs/avatar/avatar.svg', '../assets/svgs/avatar/avatar.svg', '../assets/svgs/avatar/avatar.svg'],
     alength: 0
   }
+  components= {
+    comment: comment,
+    floatingbtn: floatingbtn
+  }
   onLoad () {
     this.alength = (this.joinAvatar).length
   }
 }
 </script>
 <style lang="less">
+.ad-scroll-container {
+  margin-bottom: 100px;
+}
 .act-detail-container {
-  padding: 10px;
+  padding: 15px;
   background-color: #fff;
 }
 .ad-title {
-  font-size: 16px;
+  font-size: 24px;
   padding-bottom: 10px;
   border-bottom:1px solid #eee;
 }
@@ -81,6 +95,7 @@ export default class Detail extends wepy.page {
 }
 .ad-date, .ad-location {
   font-size: 14px;
+  opacity: 0.8;
   text {
     padding-left: 2px;
     position: relative;
@@ -91,7 +106,9 @@ export default class Detail extends wepy.page {
   padding-bottom: 10px;
 }
 .add-title {
-  padding-top: 30px;
+  margin-top: 30px;
+  border-top: 1px solid #eee;
+  padding-top: 5px;
   text-align: center;
   font-size: 14px;
   opacity: 0.7;
@@ -114,11 +131,11 @@ export default class Detail extends wepy.page {
 }
 .ad-join-num {
   float: left;
-  padding-left: 10px;
+  padding-left: 15px;
 }
 .ad-join-avatar {
   float: right;
-  padding-right: 10px;
+  padding-right: 15px;
   image {
     position: relative;
     top: 8px;

@@ -6,21 +6,21 @@ export default class extends wepy.app {
   config = {
     pages: [
       // 'pages/index',
-      // 'pages/innercampus',
+      'pages/innercampus',
       // 'pages/newactivity',
       // 'pages/new',
       // 'pages/activityschedule',
       // 'pages/activitydetail',
-      // 'pages/group',
+      'pages/group',
       // 'pages/shetuan',
-      // 'pages/sections',
+      'pages/sections',
       'pages/list',
-      'pages/message',
-      'pages/user',
+      // 'pages/message',
+      // 'pages/user',
       'pages/detail'
     ],
     window: {
-      navigationBarTitleText: '金科四合院',
+      navigationBarTitleText: '南师小院',
       navigationBarBackgroundColor: '#FA6570',
       navigationBarTextStyle: 'white',
       backgroundColor: '#F8F8F8',

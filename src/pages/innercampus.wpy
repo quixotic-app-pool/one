@@ -1,47 +1,52 @@
 <template>
-  <view class="container">
-    <view class="inner-kyomi">
-      <view class="kyomi-half kyomi-left">
-        <view class="inner-bar inner-1" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('http://i.imgur.com/RRUe0Mo.png');">
-          <view class="inner-title">小秘密</view>
-        </view>
-        <view class="inner-bar inner-2" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('http://i.imgur.com/RRUe0Mo.png');">
-          <view class="inner-title">失物招领</view>
-        </view>
-      </view>
-      <view class="kyomi-half">
-        <view class="inner-bar inner-3" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('http://i.imgur.com/RRUe0Mo.png');">
-          <view class="inner-title">体育活动</view>
-        </view>
-        <view class="inner-bar inner-4" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('http://i.imgur.com/RRUe0Mo.png');">
-          <view class="inner-title">读书会</view>
-        </view>
-      </view>
-    </view>
-    <view class="inner-other">
-      <navigator>
-        <view class="inner-bar innero-1" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('http://i.imgur.com/RRUe0Mo.png');">
-          <view class="innero-text">
-            <view class="inner-title">兴趣部落</view>
-            <view class="inner-desc">好玩的同校兴趣小组在等你额</view>
+  <view style="width: 100%;">
+    <customswiper />
+    <floatingbtn />
+    <view class="inner-container">
+      <view class="inner-kyomi">
+        <view class="kyomi-half kyomi-left">
+          <view class="inner-bar inner-1" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('http://i.imgur.com/RRUe0Mo.png');">
+            <view class="inner-title">小秘密</view>
+          </view>
+          <view class="inner-bar inner-2" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('http://i.imgur.com/RRUe0Mo.png');">
+            <view class="inner-title">失物招领</view>
           </view>
         </view>
-      </navigator>
-      <navigator>
-        <view class="inner-bar innero-2" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('http://i.imgur.com/RRUe0Mo.png');">
-          <view class="innero-text">
-            <view class="inner-title">校内社团</view>
-            <view class="inner-desc">好玩的同校社团在等你额</view>
+        <view class="kyomi-half">
+          <view class="inner-bar inner-3" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('http://i.imgur.com/RRUe0Mo.png');">
+            <view class="inner-title">体育活动</view>
+          </view>
+          <view class="inner-bar inner-4" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('http://i.imgur.com/RRUe0Mo.png');">
+            <view class="inner-title">读书会</view>
           </view>
         </view>
-      </navigator>
-    </view>
-</view>
-
+      </view>
+      <view class="inner-other">
+        <navigator>
+          <view class="inner-bar innero-1" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('http://i.imgur.com/RRUe0Mo.png');">
+            <view class="innero-text">
+              <view class="inner-title">兴趣部落</view>
+              <view class="inner-desc">好玩的同校兴趣小组在等你额</view>
+            </view>
+          </view>
+        </navigator>
+        <navigator>
+          <view class="inner-bar innero-2" style="background-image: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), url('http://i.imgur.com/RRUe0Mo.png');">
+            <view class="innero-text">
+              <view class="inner-title">校内社团</view>
+              <view class="inner-desc">好玩的同校社团在等你额</view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+  </view>
+  </view>
 </template>
 
 <script>
 import wepy from 'wepy'
+import Customswiper from '../components/swiper'
+import floatingbtn from '../components/floatingbtn'
 
 export default class Shetuan extends wepy.page {
   config = {
@@ -50,15 +55,17 @@ export default class Shetuan extends wepy.page {
   data = {
     userinfo: {}
   }
+  components= {
+    customswiper: Customswiper,
+    floatingbtn: floatingbtn
+  }
 }
 </script>
 
 <style lang="less">
-.container {
-  align-items: center;
-  justify-content: center;
+.inner-container {
   box-sizing: border-box;
-  padding: 16px;
+  padding: 10px;
 }
 .inner-bar {
   margin-bottom: 10px;
@@ -93,7 +100,7 @@ export default class Shetuan extends wepy.page {
   align-content: center;
 }
 .kyomi-left {
-  margin-right: 10px;
+  margin-right: 4%;
 }
 .kyomi-half {
   width: 48%;
