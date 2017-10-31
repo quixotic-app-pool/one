@@ -1,11 +1,16 @@
 <template>
   <view class="new">
+    <picker class="new-picker" bindchange="bindPickerChange" value="{{pickerIndex}}" range="{{categoryarray}}">
+     <view class="picker">
+       分类：{{categoryarray[pickerIndex]}}
+     </view>
+   </picker>
     <textarea
       class="textarea"
       auto-focus
       bindinput="inputChange"
       maxlength="-1"
-      placeholder="留下你的吐槽名言~"
+      placeholder="对同学们说点啥~"
       placeholder-style="color: #999;">
     </textarea>
     <view class="image-list">
@@ -77,29 +82,38 @@ import sensitiveWordChecker from '../utils/sensitiveWordChecker'
 
 export default class NewBlog extends wepy.page {
   config = {
-    navigationBarTitleText: '新吐槽'
+    navigationBarTitleText: '发新帖'
   }
 
   data = {
     content: '',
     images: [],
-    isAnonymous: false,
+    isAnonymous: true,
     device: '',
     location: '',
     latitude: '',
     longitude: '',
-    disabled: true
+    disabled: true,
+    categoryarray: ['其他', '情感', '兼职', '失物招领', '学长学姐来帮忙', '活动', '社团', '考研', '找对象'],
+    pickerIndex: 0
   }
 
   methods = {
+    bindPickerChange (e) {
+      console.log(e.detail)
+      this.pickerIndex = e.detail.value
+      // this.$apply()
+    },
     /**
      * 输入监听器
      * 自动映射到 content
      * @param {Event} e 输入事件
      */
     inputChange (e) {
-      this.content = e.detail.value
-      this.disabled = e.detail.value === ''
+      // limite word Number by 120
+      if (e.detail.value.length < 120) {
+        this.content = e.detail.value
+      }
     },
 
     /**
@@ -304,6 +318,12 @@ export default class NewBlog extends wepy.page {
 </script>
 
 <style lang="less">
+.new-picker {
+  background-color:#fff;
+  padding:10px 15px;
+  border-bottom:1px solid #eee;
+  color:#666;
+}
 .new {
   width: 100%;
 
