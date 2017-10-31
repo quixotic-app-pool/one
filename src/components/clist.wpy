@@ -10,7 +10,6 @@
       open-type="navigate"
       class="list-item"
       style="width:{{sysWidth}}px">
-      <view class="list-item-title">学生会主席</view>
       <view class="list-item-fixed" wx:if="{{ item.isFixed }}">置顶</view>
       <!-- User Info -->
       <view class="list-user">
@@ -20,7 +19,7 @@
             src="{{ item.user.avatar === '../../assert/avatar.png' ? '../assets/svgs/avatar/avatar.svg' : item.user.avatar }}">
           </image>
         </view>
-        <view class="list-user-info">
+        <view style="margin-bottom: 10px;" class="list-user-info">
           <view class="list-user-nickname">
             <text class="nickname">{{ item.user.nickname }}</text>
             <image
@@ -28,6 +27,9 @@
               class="verify"
               src="../assets/icons/male.png">
             </image>
+          </view>
+          <view class="list-category">
+            <text>失物招领</text>
           </view>
         </view>
       </view>
@@ -48,8 +50,29 @@
           </image>
         </view>
       </view>
+
+      <view class="list-user list-user2">
+        <view class="list-user-info">
+          <text class="time-and-from">{{ item.time }}</text>
+          <view
+            class="list-item-location"
+            wx:if="{{ item.location.locationName }}"
+            @tap.stop="showLocation({{ item.location.latitude }}, {{ item.location.longitude }})">
+            <image class="location-icon" src="../assets/svgs/location.svg"></image>
+            <text>{{ item.location.locationName }}</text>
+          </view>
+        </view>
+      </view>
       <!-- Blog Operations -->
       <view class="list-item-operations" wx:if="{{ !isTest }}">
+        <view
+          @tap.stop="showMore({{ idx }}, {{ item.id }})"
+          class="list-item-operation-more"
+          wx:if="{{ item.user.isAdmin || item.user.isAuthor }}">
+          <image
+            class="list-item-operation-icon"
+            src="../assets/svgs/more.svg"></image>
+        </view>
         <view
           @tap.stop="like({{ idx }}, {{ item.id }})"
           hover-class="list-item-operation-like-scale"
@@ -66,26 +89,6 @@
           <image class="list-item-operation-icon" src="../assets/images/comment.png"></image>
           <text class="number" wx:if="{{ item.commentNum !== 0 }}">{{ item.commentNum }}</text>
         </navigator>
-        <view
-          @tap.stop="showMore({{ idx }}, {{ item.id }})"
-          class="list-item-operation-more"
-          wx:if="{{ item.user.isAdmin || item.user.isAuthor }}">
-          <image
-            class="list-item-operation-icon"
-            src="../assets/svgs/more.svg"></image>
-        </view>
-      </view>
-      <view class="list-user list-user2">
-        <view class="list-user-info">
-          <text class="time-and-from">{{ item.time }}</text>
-          <view
-            class="list-item-location"
-            wx:if="{{ item.location.locationName }}"
-            @tap.stop="showLocation({{ item.location.latitude }}, {{ item.location.longitude }})">
-            <image class="location-icon" src="../assets/svgs/location.svg"></image>
-            <text>{{ item.location.locationName }}</text>
-          </view>
-        </view>
       </view>
     </navigator>
   </view>
@@ -250,28 +253,16 @@ export default class Clist extends wepy.component {
       position: absolute;
       top: 15px;
       right: 10px;
-      padding: 2px;
-      font-size: 8px;
+      padding: 4px;
+      font-size: 12px;
       font-weight: bold;
       color: #FFF;
       border-radius: 4px;
       text-align: center;
       background: #fa6570;
     }
-    .list-item-title {
-      position: absolute;
-      top: 15px;
-      right: 40px;
-      padding: 2px;
-      font-size: 8px;
-      font-weight: bold;
-      color: #FFF;
-      border-radius: 4px;
-      text-align: center;
-      background: orange;
-    }
     .list-user2 {
-      margin-left: 40px;
+      margin-left: 45px;
     }
     .list-user {
       width: 100%;
@@ -376,13 +367,13 @@ export default class Clist extends wepy.component {
       width: 100%;
       padding-top: 5px;
       overflow: hidden;
-      .list-item-operation-like {
-        margin-left: 45px;
+      view {
+        margin-left:10px;
       }
       .list-item-operation-like,
       .list-item-operation-comment,
       .list-item-operation-more {
-        float: left;
+        float: right;
         width: 40px;
         position: relative;
         text-align: center;
@@ -431,5 +422,11 @@ export default class Clist extends wepy.component {
   100% {
     transform: scale(1);
   }
+}
+.list-category text {
+  font-size:12px;
+  opacity:0.7;
+  border:1px solid gold;
+  border-radius:4px;
 }
 </style>
