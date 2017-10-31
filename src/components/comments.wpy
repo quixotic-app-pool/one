@@ -27,6 +27,15 @@
 
     <!-- comment -->
     <view class="comment" wx:if="{{ !loading }}">
+      <view class="isanonymous" >
+        <view
+          class="isanonymous-btn {{ isAnonymous ? 'anonymous' : 'named' }}"
+          @tap.stop="anonymousChange">
+          <text class="anonymous-text">匿名</text>
+          <text class="named-text">实名</text>
+          <view class="isanonymous-btn-key"></view>
+        </view>
+      </view>
       <input
         class="comment-input"
         type="text"
@@ -45,15 +54,6 @@
         @tap.stop="send"
         src="../assets/svgs/send-fill.svg">
       </image>
-      <view class="isanonymous" wx:if="{{ focusComment || !disable }}">
-        <view
-          class="isanonymous-btn {{ isAnonymous ? 'anonymous' : 'named' }}"
-          @tap.stop="anonymousChange">
-          <text class="anonymous-text">匿名</text>
-          <text class="named-text">实名</text>
-          <view class="isanonymous-btn-key"></view>
-        </view>
-      </view>
     </view>
   </view>
 </template>
@@ -73,7 +73,7 @@ export default class Comment extends wepy.component {
     focusComment: false,
     disable: true,
     comment: '',
-    isAnonymous: false,
+    isAnonymous: true,
     replyTo: '',
     inputContent: '',
     isTest: false
@@ -385,7 +385,6 @@ export default class Comment extends wepy.component {
   border-top: 1px solid #DDD;
 
   .comment-input {
-    width: 100%;
     padding: 15px;
     padding-right: 60px;
     min-height: 50px;
@@ -408,9 +407,13 @@ export default class Comment extends wepy.component {
     background: #FFF;
     padding: 5px;
     overflow: hidden;
+    float:left;
+    min-height:50px;
+    max-height:100px;
 
     .isanonymous-btn {
       position: relative;
+      top:3px;
       float: left;
       width: 66px;
       height: 32px;

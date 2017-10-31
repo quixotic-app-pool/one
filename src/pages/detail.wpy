@@ -14,12 +14,12 @@
           <view class="blog-user-nickname">
             <text class="nickname">{{ blog.user.nickname }}</text>
             <image
-              wx:if="{{ blog.user.isVerified }}"
+              wx:if="true"
               class="verify"
-              src="../assets/svgs/person-v.svg">
+              src="../assets/icons/female.png">
             </image>
           </view>
-          <text class="time-and-from">{{ blog.time + ' 来自' + blog.device }}</text>
+          <text class="time-and-from">{{ blog.time }}</text>
         </view>
       </view>
       <!-- Blog Body -->
@@ -43,30 +43,6 @@
           @tap.stop="showLocation({{ blog.location.latitude }}, {{ blog.location.longitude }})">
           <image class="location-icon" src="../assets/svgs/location.svg"></image>
           <text>{{ blog.location.locationName }}</text>
-        </view>
-      </view>
-      <!-- Blog Operations -->
-      <view class="blog-item-operations" wx:if="{{ !isTest }}">
-        <view
-          @tap.stop="like()"
-          hover-class="blog-item-operation-like-scale"
-          class="blog-item-operation-like">
-          <image
-            class="blog-item-operation-icon"
-            src="{{ blog.like ? '../assets/svgs/like-fill.svg' : '../assets/svgs/like.svg' }}"></image>
-        </view>
-        <view
-          @tap.stop="comment"
-          class="blog-item-operation-comment">
-          <image class="blog-item-operation-icon" src="../assets/svgs/comment.svg"></image>
-        </view>
-        <view
-          @tap.stop="showMore({{ idx }}, {{ blog.id }})"
-          class="blog-item-operation-more"
-          wx:if="{{ blog.user.isAdmin || blog.user.isAuthor }}">
-          <image
-            class="blog-item-operation-icon"
-            src="../assets/svgs/more.svg"></image>
         </view>
       </view>
     </view>
@@ -546,52 +522,6 @@ export default class Detail extends wepy.page {
           color: grey;
           opacity: 0.5;
         }
-      }
-    }
-
-    .blog-item-operations {
-      width: 100%;
-      padding-top: 5px;
-      border-top: 1px solid #EEE;
-      overflow: hidden;
-
-      .blog-item-operation-like,
-      .blog-item-operation-comment,
-      .blog-item-operation-more {
-        float: left;
-        width: 70px;
-        position: relative;
-        text-align: center;
-
-        .blog-item-operation-icon {
-          margin-right: 5px;
-          width: 20px;
-          height: 20px;
-        }
-
-        .number {
-          position: absolute;
-          top: 5px;
-          left: 50%;
-          margin-left: 12px;
-          color: #999;
-          font-size: 14px;
-          line-height: 14px;
-          font-weight: bold;
-        }
-
-        .active {
-          color: #FA6570;
-        }
-      }
-
-      .blog-item-operation-like-scale {
-        animation: clickAnimation 300ms ease;
-      }
-
-      .blog-item-operation-more {
-        float: right;
-        text-align: center;
       }
     }
   }
