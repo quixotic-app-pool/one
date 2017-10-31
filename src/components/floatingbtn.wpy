@@ -6,11 +6,11 @@
       <text class="nb-title1">发布新帖</text>
       <image src="../assets/icons/write.png" class="newBtn-icon newBtn-nav-icon"></image>
     </navigator>
-    <navigator url="/pages/new" animation="{{animationData2}}" class="newBtn newBtn-nav newBtn-nav2">
+    <navigator url="/pages/message" animation="{{animationData2}}" class="newBtn newBtn-nav newBtn-nav2">
       <text class="nb-title1">我的消息</text>
       <image src="../assets/icons/message.png" class="newBtn-icon newBtn-nav-icon"></image>
     </navigator>
-    <navigator url="/pages/new" animation="{{animationData3}}" class="newBtn newBtn-nav newBtn-nav3">
+    <navigator @tap="joinUs" animation="{{animationData3}}" class="newBtn newBtn-nav newBtn-nav3">
       <text class="nb-title1">Join Us</text>
       <image src="../assets/icons/joinus.png" class="newBtn-icon newBtn-nav-icon"></image>
     </navigator>
@@ -27,6 +27,12 @@ export default class Floatingbtn extends wepy.component {
     toggle: false
   }
   methods = {
+    joinUs () {
+      wepy.showModal({
+        title: '加入我们',
+        content: `加入我们的团队，和硅谷全栈工程师一起放飞梦想，请联系泽铭，微信： flyinghawker。`
+      })
+    },
     longpress() {
       console.log('long press')
       wepy.pageScrollTo({
