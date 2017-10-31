@@ -11,7 +11,7 @@ export default class extends wepy.app {
       'pages/detail'
     ],
     window: {
-      navigationBarTitleText: '南中医茶楼',
+      navigationBarTitleText: '金科院小圈圈',
       navigationBarBackgroundColor: '#FA6570',
       navigationBarTextStyle: 'white',
       backgroundColor: '#F8F8F8',
