@@ -5,49 +5,18 @@ import 'wepy-async-function'
 export default class extends wepy.app {
   config = {
     pages: [
-      // 'pages/index',
-      'pages/innercampus',
-      // 'pages/newactivity',
-      // 'pages/new',
-      // 'pages/activityschedule',
-      // 'pages/activitydetail',
-      'pages/group',
-      // 'pages/shetuan',
-      'pages/sections',
       'pages/list',
-      // 'pages/message',
-      // 'pages/user',
+      'pages/message',
+      'pages/user',
       'pages/detail'
     ],
     window: {
-      navigationBarTitleText: '南师小院',
+      navigationBarTitleText: '南中医茶楼',
       navigationBarBackgroundColor: '#FA6570',
       navigationBarTextStyle: 'white',
       backgroundColor: '#F8F8F8',
       enablePullDownRefresh: true
     }
-    // tabBar: {
-    //   'color': '#999999',
-    //   'selectedColor': '#ff6a3c',
-    //   'backgroundColor': '#ffffff',
-    //   'borderStyle': 'black',
-    //   'list': [{
-    //     'pagePath': 'pages/list',
-    //     'text': '院子',
-    //     'iconPath': './assets/images/home.png',
-    //     'selectedIconPath': './assets/images/home-fill.png'
-    //   }, {
-    //     'pagePath': 'pages/message',
-    //     'text': '邮箱',
-    //     'iconPath': './assets/images/message.png',
-    //     'selectedIconPath': './assets/images/message-fill.png'
-    //   }, {
-    //     'pagePath': 'pages/user',
-    //     'text': '卧室',
-    //     'iconPath': './assets/images/my.png',
-    //     'selectedIconPath': './assets/images/my-fill.png'
-    //   }]
-    // }
   }
   globalData = {
     userInfo: null

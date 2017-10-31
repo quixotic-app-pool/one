@@ -1,13 +1,5 @@
 <template>
   <view class="list-container">
-    <!-- <navigator
-      url="/pages/new"
-      open-type="navigate"
-      hover-class="newBtn-hover"
-      hover-stay-time="200"
-      class="newBtn">
-      <image src="../assets/svgs/write.svg" class="newBtn-icon"></image>
-    </navigator> -->
     <floatingbtn />
     <navigator
       wx:for="{{ list }}"
@@ -34,7 +26,7 @@
             <image
               wx:if="{{ item.user.isVerified }}"
               class="verify"
-              src="../assets/svgs/person-v.svg">
+              src="../assets/icons/male.png">
             </image>
           </view>
         </view>
@@ -85,7 +77,7 @@
       </view>
       <view class="list-user list-user2">
         <view class="list-user-info">
-          <text class="time-and-from">{{ item.time + ' 来自' + item.device }}</text>
+          <text class="time-and-from">{{ item.time }}</text>
           <view
             class="list-item-location"
             wx:if="{{ item.location.locationName }}"
@@ -314,8 +306,8 @@ export default class Clist extends wepy.component {
 
           .verify {
             float: left;
-            width: 12px;
-            height: 12px;
+            width: 15px;
+            height: 15px;
             margin-top: 9px;
           }
         }
