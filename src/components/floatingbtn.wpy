@@ -42,7 +42,7 @@ export default class Floatingbtn extends wepy.component {
     joinUs () {
       wepy.showModal({
         title: '加入我们',
-        content: `加入我们的团队，和硅谷全栈工程师一起放飞梦想，请联系泽铭，微信： flyinghawker。`
+        content: `加入我们的团队，一起放飞梦想，请联系泽铭，微信： flyinghawker。`
       })
     },
     longpress() {

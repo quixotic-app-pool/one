@@ -5,7 +5,7 @@
  * @Project: one_server
  * @Filename: dummyData.js
  * @Last modified by:   mymac
- * @Last modified time: 2017-10-31T18:06:47+08:00
+ * @Last modified time: 2017-10-31T18:16:42+08:00
  */
 
 
@@ -35,7 +35,7 @@ const dummy = {
       user: {
         isAdmin: true,
         isAuthor: false,
-        avatar: '../../assets/avatar.png',
+        avatar: '../assets/svgs/avatar/avatar.svg',
         nickname: '陈泽铭',
         gender: 'male'
       },
@@ -64,7 +64,7 @@ const dummy = {
       user: {
         isAdmin: true,
         isAuthor: true,
-        avatar: '../../assert/avatar.png',
+        avatar: '.../assets/svgs/avatar/avatar.svg',
         nickname: 'michale chen and uncle john',
         gender: 'female'
       },
@@ -91,7 +91,7 @@ const dummy = {
       user: {
         isAdmin: true,
         isAuthor: false,
-        avatar: '../../assert/avatar.png',
+        avatar: '../assets/svgs/avatar/avatar.svg',
         nickname: 'michale chen',
         gender: 'male'
       },
@@ -116,7 +116,7 @@ const dummy = {
       ],
       user: {
         isAdmin: true,
-        avatar: '../../assert/avatar.png',
+        avatar: '../assets/svgs/avatar/avatar.svg',
         nickname: 'michale chen',
         gender: 'female'
       },
@@ -142,7 +142,7 @@ const dummy = {
       user: {
         isAdmin: false,
         isAuthor: false,
-        avatar: '../../assert/avatar.png',
+        avatar: '../assets/svgs/avatar/avatar.svg',
         nickname: 'michale chen',
         gender: 'female'
       },
