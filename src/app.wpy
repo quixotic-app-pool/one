@@ -6,7 +6,7 @@ export default class extends wepy.app {
   config = {
     pages: [
       // 'pages/list',
-      'pages/new',
+      // 'pages/new',
       'pages/message',
       'pages/user',
       'pages/detail'
