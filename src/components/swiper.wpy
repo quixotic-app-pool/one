@@ -10,14 +10,16 @@
 
 <script>
 import wepy from 'wepy'
+import { dummy } from '../dummyData'
 
-export default class Customswiper extends wepy.page {
+export default class Customswiper extends wepy.component {
   data = {
     sysWidth: wepy.getSystemInfoSync().windowWidth,
-    imgUrls: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg'
-    ]
+    imgUrls: []
+  }
+  onLoad() {
+    // TODO:swiper api
+    this.imgUrls = dummy.swiperImgUrls
   }
 }
 </script>

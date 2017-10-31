@@ -5,17 +5,15 @@
  * @Project: one_server
  * @Filename: dummyData.js
  * @Last modified by:   mymac
- * @Last modified time: 2017-10-31T12:23:10+08:00
+ * @Last modified time: 2017-10-31T18:06:47+08:00
  */
 
 
 
 const dummy = {
-  ads: [
-    {
-      bid: '1',
-      image: 'http://blog.visme.co/wp-content/uploads/2015/10/color1.jpg'
-    }
+  swiperImgUrls: [
+    'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+    'https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg'
   ],
   list: [
     {
@@ -24,18 +22,103 @@ const dummy = {
       id: 1,
       isFixed: true,
       time: '10天前',
-      device: 'iphone 6s',
       text: 'hello world',
+      isanonymous: true,
+      tag: '失物招领',
       images: [
+        'https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg',
+        'https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg',
         'https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg',
         'https://beebom-redkapmedia.netdna-ssl.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg',
         'http://www.gettyimages.ca/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg'
       ],
       user: {
         isAdmin: true,
-        avatar: '../../assert/avatar.png',
+        isAuthor: false,
+        avatar: '../../assets/avatar.png',
         nickname: '陈泽铭',
-        isVerified: true,
+        gender: 'male'
+      },
+      location: {
+        locationName: '莱茵河畔的臭水沟',
+        latitude: '100',
+        longitude: '100'
+      },
+      commentNum: 12
+    },
+    {
+      like: 1,
+      likeNum: 1,
+      id: 1,
+      isFixed: false,
+      time: '1天前',
+      text: '都是虚假的，有什么好伤神的~',
+      isanonymous: false,
+      tag: '情感',
+      images: [
+        'https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg',
+        'https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg',
+        'https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg',
+        'http://www.gettyimages.ca/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg'
+      ],
+      user: {
+        isAdmin: true,
+        isAuthor: true,
+        avatar: '../../assert/avatar.png',
+        nickname: 'michale chen and uncle john',
+        gender: 'female'
+      },
+      location: {
+        locationName: '莱茵河畔的臭水沟',
+        latitude: '100',
+        longitude: '100'
+      },
+      commentNum: 12
+    },
+    {
+      like: 1,
+      likeNum: 1,
+      id: 1,
+      isFixed: false,
+      time: '1天前',
+      text: '都是虚假的，有什么好伤神的~',
+      isanonymous: true,
+      tag: '小秘密',
+      images: [
+        'https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg',
+        'http://www.gettyimages.ca/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg'
+      ],
+      user: {
+        isAdmin: true,
+        isAuthor: false,
+        avatar: '../../assert/avatar.png',
+        nickname: 'michale chen',
+        gender: 'male'
+      },
+      location: {
+        locationName: '莱茵河畔的臭水沟',
+        latitude: '100',
+        longitude: '100'
+      },
+      commentNum: 12
+    },
+    {
+      like: 1,
+      likeNum: 1,
+      id: 1,
+      isFixed: false,
+      time: '1天前',
+      text: '都是虚假的，有什么好伤神的~',
+      isanonymous: true,
+      tag: '兼职',
+      images: [
+        'http://www.gettyimages.ca/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg'
+      ],
+      user: {
+        isAdmin: true,
+        avatar: '../../assert/avatar.png',
+        nickname: 'michale chen',
+        gender: 'female'
       },
       location: {
         locationName: '莱茵河畔的臭水沟',
@@ -50,88 +133,18 @@ const dummy = {
       id: 1,
       isFixed: true,
       time: '1天前',
-      device: 'iphone 6',
       text: '都是虚假的，有什么好伤神的~',
+      isanonymous: false,
+      tag: '活动',
       images: [
         'http://www.gettyimages.ca/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg'
       ],
       user: {
-        isAdmin: true,
+        isAdmin: false,
+        isAuthor: false,
         avatar: '../../assert/avatar.png',
         nickname: 'michale chen',
-        isVerified: true,
-      },
-      location: {
-        locationName: '莱茵河畔的臭水沟',
-        latitude: '100',
-        longitude: '100'
-      },
-      commentNum: 12
-    },
-    {
-      like: 1,
-      likeNum: 1,
-      id: 1,
-      isFixed: true,
-      time: '1天前',
-      device: 'iphone 6',
-      text: '都是虚假的，有什么好伤神的~',
-      images: [
-        'http://www.gettyimages.ca/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg'
-      ],
-      user: {
-        isAdmin: true,
-        avatar: '../../assert/avatar.png',
-        nickname: 'michale chen',
-        isVerified: true,
-      },
-      location: {
-        locationName: '莱茵河畔的臭水沟',
-        latitude: '100',
-        longitude: '100'
-      },
-      commentNum: 12
-    },
-    {
-      like: 1,
-      likeNum: 1,
-      id: 1,
-      isFixed: true,
-      time: '1天前',
-      device: 'iphone 6',
-      text: '都是虚假的，有什么好伤神的~',
-      images: [
-        'http://www.gettyimages.ca/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg'
-      ],
-      user: {
-        isAdmin: true,
-        avatar: '../../assert/avatar.png',
-        nickname: 'michale chen',
-        isVerified: true,
-      },
-      location: {
-        locationName: '莱茵河畔的臭水沟',
-        latitude: '100',
-        longitude: '100'
-      },
-      commentNum: 12
-    },
-    {
-      like: 1,
-      likeNum: 1,
-      id: 1,
-      isFixed: true,
-      time: '1天前',
-      device: 'iphone 6',
-      text: '都是虚假的，有什么好伤神的~',
-      images: [
-        'http://www.gettyimages.ca/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg'
-      ],
-      user: {
-        isAdmin: true,
-        avatar: '../../assert/avatar.png',
-        nickname: 'michale chen',
-        isVerified: true,
+        gender: 'female'
       },
       location: {
         locationName: '莱茵河畔的臭水沟',
@@ -145,77 +158,112 @@ const dummy = {
     {
       bid: 1,
       nid: 2,
-      isUnread: true,
+      isUnread: false,
       time: '一千年以前',
       content: '昨天孔子找我喝茶，太抠了',
+      isanonymous: false,
+      blog: {
+        text: '玄武湖我发现了一个秘密山洞'
+      },
       user: {
         avatar: '../assets/svgs/avatar/avatar.svg',
-        nickname: '隔壁老王'
+        nickname: '隔壁老王',
+        gender: 'male'
       }
     },
     {
       bid: 1,
       nid: 2,
       isUnread: true,
+      isanonymous: true,
       time: '一千年以前',
       content: '昨天孔子找我喝茶，太抠了',
+      blog: {
+        text: '玄武湖我发现了一个秘密山洞2'
+      },
       user: {
         avatar: '../assets/svgs/avatar/avatar.svg',
-        nickname: '陈泽铭'
+        nickname: '陈泽铭',
+        gender: 'female'
+      }
+    },
+    {
+      bid: 1,
+      nid: 2,
+      isUnread: false,
+      isanonymous: true,
+      time: '一千年以前',
+      content: '昨天孔子找我喝茶，太抠了',
+      blog: {
+        text: '玄武湖我发现了一个秘密山洞3'
+      },
+      user: {
+        avatar: '../assets/svgs/avatar/avatar.svg',
+        nickname: '隔壁老王',
+        gender: 'male'
+      }
+    },
+    {
+      bid: 1,
+      nid: 2,
+      isUnread: false,
+      isanonymous: false,
+      time: '一千年以前',
+      content: '昨天孔子找我喝茶，太抠了',
+      blog: {
+        text: '玄武湖我发现了一个秘密山洞4'
+      },
+      user: {
+        avatar: '../assets/svgs/avatar/avatar.svg',
+        nickname: '陈泽铭',
+        gender: 'female'
       }
     },
     {
       bid: 1,
       nid: 2,
       isUnread: true,
+      isanonymous: false,
       time: '一千年以前',
       content: '昨天孔子找我喝茶，太抠了',
+      blog: {
+        text: '玄武湖我发现了一个秘密山洞5'
+      },
       user: {
         avatar: '../assets/svgs/avatar/avatar.svg',
-        nickname: '隔壁老王'
+        nickname: '隔壁老王',
+        gender: 'female'
       }
     },
     {
       bid: 1,
       nid: 2,
       isUnread: true,
+      isanonymous: true,
       time: '一千年以前',
       content: '昨天孔子找我喝茶，太抠了',
+      blog: {
+        text: '玄武湖我发现了一个秘密山洞6'
+      },
       user: {
         avatar: '../assets/svgs/avatar/avatar.svg',
-        nickname: '陈泽铭'
-      }
-    },
-    {
-      bid: 1,
-      nid: 2,
-      isUnread: true,
-      time: '一千年以前',
-      content: '昨天孔子找我喝茶，太抠了',
-      user: {
-        avatar: '../assets/svgs/avatar/avatar.svg',
-        nickname: '隔壁老王'
-      }
-    },
-    {
-      bid: 1,
-      nid: 2,
-      isUnread: true,
-      time: '一千年以前',
-      content: '昨天孔子找我喝茶，太抠了',
-      user: {
-        avatar: '../assets/svgs/avatar/avatar.svg',
-        nickname: '陈泽铭'
+        nickname: '陈泽铭',
+        gender: 'female'
       }
     },{
       bid: 1,
       nid: 2,
-      isUnread: true,
+      isUnread: false,
+      isanonymous: false,
       time: '一千年以前',
       content: '昨天孔子找我喝茶，太抠了',
+      blog: {
+        text: '玄武湖我发现了一个秘密山洞7'
+      },
       user: {
         avatar: '../assets/svgs/avatar/avatar.svg',
-        nickname: '隔壁老王'
+        nickname: '隔壁老王',
+        gender: 'female'
       }
     }
   ],
@@ -248,12 +296,15 @@ const dummy = {
     isAuthor: true,
     commentNum: 12,
     likeNum: 10,
+    isanonymous: false,
     comments: [
       {
         nickname: '卢瑨威',
         openid: 'xsf1',
         isAdmin: true,
+        isanonymous: false,
         cid: 1,
+        gender: 'male',
         avatar: '../assets/svgs/avatar/avatar.svg',
         content: '大学生活还是挺无拘无束的'
       },
@@ -261,14 +312,17 @@ const dummy = {
         nickname: '陈泽铭',
         openid: 'xsf1',
         isAdmin: true,
+        isanonymous: true,
         cid: 1,
+        gender: 'female',
         avatar: '../assets/svgs/avatar/avatar.svg',
         content: '同感'
       }
     ],
     user: {
+      avatar: '../assets/svgs/avatar/avatar.svg',
       nickname: '张方舒',
-      isVerified: true
+      gender: 'female'
     },
     time: '上古时期',
     device: 'iphone 99',

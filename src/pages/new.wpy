@@ -37,7 +37,7 @@
       <!-- image choosing btn -->
       <view
         class="choose-image-btn"
-        wx:if="{{ images.length < 9 }}"
+        wx:if="{{ images.length < 6 }}"
         bindtap="chooseImage">
         <image
           class="choose-image-btn-icon"
@@ -121,7 +121,7 @@ export default class NewBlog extends wepy.page {
      */
     async chooseImage () {
       const { tempFilePaths } = await wepy.chooseImage({
-        count: 9 - this.images.length,
+        count: 6 - this.images.length,
         sizeType: 'compressed'
       })
       this.images.push(...tempFilePaths)

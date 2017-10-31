@@ -15,10 +15,14 @@
           wx:key="{{ i }}"
           @tap.stop="showAction({{ comment.nickname }}, {{ comment.openid }}, {{ comment.isAdmin }}, {{ comment.isAuthor }}, {{ comment.cid }}, {{ i }})">
           <view class="comment-user-info">
-            <image src="{{ comment.avatar }}" class="comment-user-avatar"></image>
+            <image
+              class="comment-user-avatar"
+              src="{{ comment.isanonymous ? comment.gender === 'male' ? '../assets/icons/avatar-male.png' : '../assets/icons/avatar-female.png': comment.avatar }}">
+            </image>
           </view>
           <view class="comment-info">
-            <text class="comment-nickname">{{ comment.nickname }}</text>
+            <text wx:if="{{ comment.isanonymous }}" class="nickname">{{ comment.gender === 'male' ? '隔壁老王': '宿管阿姨'}}</text>
+            <text wx:else class="nickname">{{ comment.nickname }}</text>
             <text class="comment-content">{{ comment.content }}</text>
           </view>
         </view>
@@ -63,11 +67,12 @@ import wepy from 'wepy'
 import { api } from '../config'
 import http from '../utils/request'
 import sensitiveWordChecker from '../utils/sensitiveWordChecker'
-import { dummy } from '../dummyData'
 
 export default class Comment extends wepy.component {
+  props= {
+    blog: Object
+  }
   data = {
-    blog: {},
     loading: true,
     placeholder: '写点评论...',
     focusComment: false,
@@ -78,7 +83,6 @@ export default class Comment extends wepy.component {
     inputContent: '',
     isTest: false
   }
-
   methods = {
     async showAction (nickname, openid, isAdmin, isAuthor, id, idx) {
       console.log(arguments)
@@ -270,7 +274,9 @@ export default class Comment extends wepy.component {
   }
 
   async fetchDetail (id) {
-    this.blog = dummy.blogDetail
+    // when scroll down to fetch more comments, need to call the parent (detail) or directly to
+    // blog with its id
+    // this.blog = dummy.blogDetail
     this.loading = false
     this.$apply()
 

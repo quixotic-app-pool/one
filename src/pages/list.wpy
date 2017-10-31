@@ -10,61 +10,43 @@
 <script>
 import wepy from 'wepy'
 import clist from '../components/clist'
-import { api } from '../config'
-import http from '../utils/request'
 import { dummy } from '../dummyData'
 import Customswiper from '../components/swiper'
 
 export default class List extends wepy.page {
   data = {
     list: [],
-    sysWidth: wepy.getSystemInfoSync().windowWidth,
-    page: 1,
-    imgUrls: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg',
-      'https://beebom-redkapmedia.netdna-ssl.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg'
-    ]
+    page: 1
   }
-
   components = {
     clist: clist,
     customswiper: Customswiper
   }
-  /**
-   * lifecycles hook
-   */
   onLoad() {
     this.onComponentLoad()
   }
 
   async onComponentLoad () {
     await this.loadData()
-    this.$apply()
-    console.log('indicator4')
-    // call component's lifecycle
-    this.$invoke('clist', 'onComponentLoad')
+    // this.$apply()
   }
 
-  async onReload () {
-    this.page = 1
-    await this.loadData()
-    this.$apply()
-  }
+  // async onReload () {
+  //   this.page = 1
+  //   await this.loadData()
+  //   this.$apply()
+  // }
 
-  async onPullDownRefresh () {
-    this.page = 1
-    await this.loadData()
-  }
+  // async onPullDownRefresh () {
+  //   this.page = 1
+  //   await this.loadData()
+  // }
 
-  async onReachBottom () {
-    this.page++
-    await this.loadData()
-  }
+  // async onReachBottom () {
+  //   this.page++
+  //   await this.loadData()
+  // }
 
-  /**
-   * common functions
-   */
   async loadData () {
     this.list = dummy.list
 

@@ -10,26 +10,26 @@
       open-type="navigate"
       class="list-item"
       style="width:{{sysWidth}}px">
-      <view class="list-item-fixed" wx:if="{{ item.isFixed }}">置顶</view>
+      <view class="list-item-fixed" wx:if="{{ item.isFixed }}">UP!</view>
       <!-- User Info -->
       <view class="list-user">
         <view class="list-user-avatar">
           <image
             class="avatar"
-            src="{{ item.user.avatar === '../../assert/avatar.png' ? '../assets/svgs/avatar/avatar.svg' : item.user.avatar }}">
+            src="{{ item.isanonymous ? item.user.gender === 'male' ? '../assets/icons/avatar-male.png' : '../assets/icons/avatar-female.png': item.user.avatar }}">
           </image>
         </view>
         <view style="margin-bottom: 10px;" class="list-user-info">
           <view class="list-user-nickname">
-            <text class="nickname">{{ item.user.nickname }}</text>
+            <text wx:if="{{ item.isanonymous }}" class="nickname">{{ item.user.gender === 'male' ? '隔壁老王': '宿管阿姨'}}</text>
+            <text wx:else class="nickname">{{ item.user.nickname }}</text>
             <image
-              wx:if="{{ item.user.isVerified }}"
               class="verify"
-              src="../assets/icons/male.png">
+              src="{{ item.user.gender === 'male' ? '../assets/icons/male.png' : '../assets/icons/female.png' }}">
             </image>
           </view>
           <view class="list-category">
-            <text>失物招领</text>
+            <text>{{item.tag}}</text>
           </view>
         </view>
       </view>
@@ -64,11 +64,10 @@
         </view>
       </view>
       <!-- Blog Operations -->
-      <view class="list-item-operations" wx:if="{{ !isTest }}">
+      <view class="list-item-operations">
         <view
-          @tap.stop="showMore({{ idx }}, {{ item.id }})"
-          class="list-item-operation-more"
-          wx:if="{{ item.user.isAdmin || item.user.isAuthor }}">
+          @tap.stop="showMore({{ idx }}, {{ item.id }}, {{ item.user }})"
+          class="list-item-operation-more">
           <image
             class="list-item-operation-icon"
             src="../assets/svgs/more.svg"></image>
@@ -102,11 +101,9 @@ import floatingbtn from './floatingbtn'
 
 export default class Clist extends wepy.component {
   props = {
-    list: Object,
-    ads: Object
+    list: Object
   }
   data = {
-    isTest: false,
     sysWidth: wepy.getSystemInfoSync().windowWidth,
     imgWith: 0
   }
@@ -177,14 +174,20 @@ export default class Clist extends wepy.component {
      * @param {Number} idx 点赞树洞的索引
      * @param {Number} id  点赞树洞的 id
     */
-    async showMore (idx, id) {
+    async showMore (idx, id, user) {
       try {
+        var option = ''
+        if (user.isAdmin | user.isAuthor) {
+          option = '删除'
+        } else {
+          // other users
+          option = '举报'
+        }
         const { tapIndex } = await wepy.showActionSheet({
-          itemList: [
-            '删除'
-          ]
+          itemList: [ option ]
         })
 
+        // TODO: 下面是关于删除的操作，现在加上了举报选项，需要调整
         if (tapIndex === 0) {
           const status = await wepy.showModal({
             title: '删除',
@@ -256,10 +259,9 @@ export default class Clist extends wepy.component {
       padding: 4px;
       font-size: 12px;
       font-weight: bold;
-      color: #FFF;
       border-radius: 4px;
       text-align: center;
-      background: #fa6570;
+      background: gold;
     }
     .list-user2 {
       margin-left: 45px;
@@ -293,6 +295,7 @@ export default class Clist extends wepy.component {
             font-weight: bold;
             line-height: 20px;
             color: rgb(35, 159, 100);
+            max-width:150px;
           }
 
           .verify {
@@ -428,5 +431,6 @@ export default class Clist extends wepy.component {
   opacity:0.7;
   border:1px solid gold;
   border-radius:4px;
+  padding: 0 2px;
 }
 </style>

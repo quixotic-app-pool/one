@@ -4,11 +4,11 @@
     bindscrolltolower="loadNextPage"
     class="list">
     <view class="operations">
-      <view class="operation markAllRead" @tap.stop="markAllRead()">
+      <view hover-class = "xiaoxi-press" class="operation markAllRead" @tap.stop="markAllRead()">
         <image src="../assets/svgs/markAllRead.svg"></image>
         <text>全部标为已读</text>
       </view>
-      <view class="operation refresh" @tap.stop="refresh()">
+      <view hover-class = "xiaoxi-press" class="operation refresh" @tap.stop="refresh()">
         <image src="../assets/svgs/refresh.svg"></image>
         <text>刷新</text>
       </view>
@@ -21,15 +21,16 @@
       @tap.stop="jumpTo({{ item.bid }}, {{ item.nid }})"
       class="item {{ item.isUnread ? 'unread' : 'read' }}">
       <view class="avatar">
-        <image src="{{ item.user.avatar }}" class="avatar-image"></image>
+        <image src="{{ item.isanonymous ? item.user.gender === 'male' ? '../assets/icons/avatar-male.png' : '../assets/icons/avatar-female.png': item.user.avatar }}" class="avatar-image"></image>
       </view>
-      <view class="content">
+      <view class="content" style=" opacity: {{ item.isUnread ? 1 : 0.5 }}">
         <view class="userinfo">
-          <text class="nickname">{{ item.user.nickname }}</text>
+          <text wx:if="{{ item.isanonymous }}" class="nickname">{{ item.user.gender === 'male' ? '隔壁老王': '宿管阿姨'}}</text>
+          <text wx:else class="nickname">{{ item.user.nickname }}</text>
           <text class="time"> {{ item.time }}</text>
         </view>
         <text class="message-content">{{ item.content }}</text>
-        <text class="xiaoxi-from">在: {{zhuangtaititle}} 中撂下评论</text>
+        <text class="xiaoxi-from">在: {{item.blog.text}} 中撂下评论</text>
       </view>
     </view>
   </scroll-view>
@@ -44,8 +45,7 @@ import { dummy } from '../dummyData'
 export default class Xiaoxi extends wepy.component {
   data = {
     list: [],
-    page: 1,
-    zhuangtaititle: '玄武湖我发现了一个秘密山洞'
+    page: 1
   }
   async onLoad() {
     this.page = 1
@@ -91,6 +91,7 @@ export default class Xiaoxi extends wepy.component {
      * 刷新列表
      */
     async refresh () {
+      // 刷新会清掉那些看过的message，即isunread为false的，有爽快的体验
       this.page = 1
       await this.reloadList()
     },
@@ -122,6 +123,9 @@ export default class Xiaoxi extends wepy.component {
 </script>
 
 <style lang="less">
+.xiaoxi-press {
+  background-color: gold;
+}
 .list {
   position: relative;
   width: 100%;
@@ -156,11 +160,12 @@ export default class Xiaoxi extends wepy.component {
 
     .markAllRead {
       width: 60%;
+      text-align:center;
     }
 
     .refresh {
       width: 40%;
-      text-align: right;
+      text-align:center;
     }
   }
 

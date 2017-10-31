@@ -7,16 +7,16 @@
         <view class="blog-user-avatar">
           <image
             class="avatar"
-            src="../assets/images/avatar.png">
+            src="{{ blog.user.isanonymous ? blog.user.gender === 'male' ? '../assets/icons/avatar-male.png' : '../assets/icons/avatar-female.png': blog.user.avatar }}">
           </image>
         </view>
         <view class="blog-user-info">
           <view class="blog-user-nickname">
-            <text class="nickname">{{ blog.user.nickname }}</text>
+            <text wx:if="{{ blog.isanonymous }}" class="nickname">{{ blog.user.gender === 'male' ? '隔壁老王': '宿管阿姨'}}</text>
+            <text wx:else class="nickname">{{ blog.user.nickname }}</text>
             <image
-              wx:if="true"
               class="verify"
-              src="../assets/icons/female.png">
+              src="{{ blog.user.gender === 'male' ? '../assets/icons/male.png' : '../assets/icons/female.png' }}">
             </image>
           </view>
           <text class="time-and-from">{{ blog.time }}</text>
@@ -46,7 +46,7 @@
         </view>
       </view>
     </view>
-    <comment/>
+    <comment :blog.sync="blog"/>
   </view>
 </template>
 
@@ -54,13 +54,13 @@
 import wepy from 'wepy'
 import { api } from '../config'
 import http from '../utils/request'
-import sensitiveWordChecker from '../utils/sensitiveWordChecker'
+// import sensitiveWordChecker from '../utils/sensitiveWordChecker'
 import { dummy } from '../dummyData'
 import comment from '../components/comments'
 
 export default class Detail extends wepy.page {
   config = {
-    navigationBarTitleText: '内容'
+    navigationBarTitleText: '状态'
   }
 
   data = {
@@ -186,185 +186,6 @@ export default class Detail extends wepy.page {
         longitude,
         scale: 28
       })
-    },
-
-    /**
-     * 显示操作列表
-     * @param {String}  nickname 操作对象的昵称
-     * @param {String}  openid   操作对象的 openid
-     * @param {Boolean} isAdmin  是否具有高级权限
-     * @param {Number}  id       操作对象的评论的 id
-     * @param {Number}  idx      操作对象的索引
-     */
-    async showAction (nickname, openid, isAdmin, isAuthor, id, idx) {
-      console.log(arguments)
-      const itemList = [`回复 ${nickname}:`]
-
-      if (isAdmin || isAuthor) {
-        itemList.push('删除评论')
-      }
-
-      try {
-        const { tapIndex } = await wepy.showActionSheet({
-          itemList
-        })
-
-        if (tapIndex === 0) {
-          this.methods.reply.call(this, nickname, openid)
-        } else if (tapIndex === 1) {
-          await this.methods.deleteComment.call(this, id, idx)
-        }
-      } catch (e) {}
-    },
-
-    /**
-     * 回复指定人
-     * @param {String} nickname 回复对象的昵称
-     * @param {String} openid   回复对象的 openid
-     */
-    reply (nickname, openid) {
-      this.inputContent = '回复 ' + nickname + '：'
-      this.focusComment = true
-      this.replyTo = openid
-      this.$apply()
-    },
-
-    /**
-     * 删除评论
-     * @param {Number} id  要删除对象的评论的 id
-     * @param {Number} idx 要删除对象的索引
-     */
-    async deleteComment (id, idx) {
-      const status = await wepy.showModal({
-        title: '删除',
-        content: '确定要删除这条评论？',
-        cancelText: '不删了',
-        cancelColor: '#666666',
-        confirmText: '删除吧',
-        confirmColor: '#3CC51F'
-      })
-
-      if (status.confirm) {
-        try {
-          await http({
-            url: `${api.blog.deleteComment.url}/${id}`,
-            method: api.blog.deleteComment.method
-          })
-
-          await this.fetchDetail(this.blog.id)
-        } catch (e) {
-          wepy.showModal({
-            title: '提示',
-            content: '删除评论失败。请重试或截图本提示，联系深大汪峰。' + e.message
-          })
-        }
-      }
-    },
-
-    /**
-     * 直接回复评论
-     */
-    comment () {
-      this.inputContent = ''
-      this.placeholder = '写点评论...'
-      this.focusComment = true
-      this.$apply()
-    },
-
-    /**
-     * 输入监听器
-     * 自动映射到 content
-     * @param {Event} e 输入事件
-     */
-    inputChange (e) {
-      this.comment = e.detail.value
-      this.disable = e.detail.value === ''
-    },
-
-    /**
-     * 输入框聚焦
-     */
-    inputFocus () {
-      this.focusComment = true
-      this.$apply()
-    },
-
-    /**
-     * 输入框失去焦点
-     */
-    inputBlur () {
-      this.focusComment = false
-      this.$apply()
-    },
-
-    async inputConfirm () {
-      await this.methods.send.call(this)
-    },
-
-    /**
-     * 切换实名、匿名
-     */
-    anonymousChange () {
-      this.isAnonymous = !this.isAnonymous
-      this.$apply()
-    },
-
-    /**
-     * 发送评论
-     */
-    async send () {
-      wepy.showToast({
-        title: '发送中...',
-        icon: 'loading',
-        duration: 10000,
-        mask: true
-      })
-
-      if (sensitiveWordChecker(this.comment)) {
-        wepy.hideToast()
-        wepy.showModal({
-          title: '提示',
-          content: '包含敏感词汇，发送失败：）'
-        })
-        return
-      }
-
-      const pack = {
-        bid: this.blog.id,
-        content: this.comment,
-        replyTo: this.replyTo,
-        isAnonymous: this.isAnonymous
-      }
-
-      try {
-        await http({
-          url: api.blog.comment.url,
-          method: api.blog.comment.method,
-          data: pack
-        })
-
-        // init input
-        this.inputContent = this.comment
-        this.$apply()
-        this.comment = ''
-        this.replyTo = ''
-        this.inputContent = ''
-        this.disable = true
-        this.focusComment = false
-        this.isAnonymous = false
-
-        // refetch data
-        await this.fetchDetail(this.blog.id)
-        this.$apply()
-
-        wepy.hideToast()
-      } catch (e) {
-        wepy.hideToast()
-        wepy.showModal({
-          title: '提示',
-          content: '发送评论失败。请重试或截图本提示，联系深大汪峰。' + e.message
-        })
-      }
     }
   }
 
