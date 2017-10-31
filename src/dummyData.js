@@ -1,3 +1,15 @@
+/**
+ * @Author: MichaelChen <mymac>
+ * @Date:   2017-10-24T10:20:07+08:00
+ * @Email:  teacherincafe@163.com
+ * @Project: one_server
+ * @Filename: dummyData.js
+ * @Last modified by:   mymac
+ * @Last modified time: 2017-10-31T12:23:10+08:00
+ */
+
+
+
 const dummy = {
   ads: [
     {
@@ -205,23 +217,12 @@ const dummy = {
         avatar: '../assets/svgs/avatar/avatar.svg',
         nickname: '隔壁老王'
       }
-    },
-    {
-      bid: 1,
-      nid: 2,
-      isUnread: true,
-      time: '一千年以前',
-      content: '昨天孔子找我喝茶，太抠了',
-      user: {
-        avatar: '../assets/svgs/avatar/avatar.svg',
-        nickname: '陈泽铭'
-      }
     }
   ],
   blogs: [
     {
       id: 1,
-      content: '想说什么，我的TA',
+      content: '想说什么，我无语了，竟然还有这样无耻下流肮脏的幼稚可爱小丫头',
       images: [
         'https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg',
         'https://beebom-redkapmedia.netdna-ssl.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg'
@@ -232,29 +233,7 @@ const dummy = {
     },
     {
       id: 1,
-      content: '想说什么，我的TA',
-      images: [
-        'https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg',
-        'https://beebom-redkapmedia.netdna-ssl.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg'
-      ],
-      latitude: '100',
-      longitude: '100',
-      location: '沙家浜'
-    },
-    {
-      id: 1,
-      content: '想说什么，我的TA',
-      images: [
-        'https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg',
-        'https://beebom-redkapmedia.netdna-ssl.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg'
-      ],
-      latitude: '100',
-      longitude: '100',
-      location: '沙家浜'
-    },
-    {
-      id: 1,
-      content: '想说什么，我的TA',
+      content: '想说什么，话说五百年前的那次战斗，我们的族人自此沦落',
       images: [
         'https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg',
         'https://beebom-redkapmedia.netdna-ssl.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg'

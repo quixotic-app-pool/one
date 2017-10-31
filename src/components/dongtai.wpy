@@ -14,24 +14,15 @@
           open-type="navigate"
           class="item-body">
           <text class="item-body-content">{{ item.content }}</text>
-          <view class="item-body-images" wx:if="{{ item.images.length !== 0 }}">
-            <image
-              wx:for-item="image"
-              wx:for="{{ item.images }}"
-              wx:for-index="i"
-              wx:key="{{ i }}"
-              @tap.stop="viewPic({{ image }}, {{ item.images }})"
-              src="{{ image }}"
-              class="item-body-image"
-              mode="aspectFill">
-            </image>
-          </view>
           <view
             class="item-location"
             wx:if="{{ item.location }}"
             @tap.stop="showLocation({{ item.latitude }}, {{ item.longitude }})">
             <image class="location-icon" src="../assets/svgs/location.svg"></image>
             <text>{{ item.location }}</text>
+          </view>
+          <view class="dongtai-img" wx:if="{{ item.images.length !== 0 }}">
+            <text>{{item.images.length}}个图片</text>
           </view>
         </navigator>
       </view>
@@ -83,6 +74,15 @@ export default class User extends wepy.component {
 </script>
 
 <style lang="less">
+.dongtai-img {
+  float:left;
+  margin-left:10px;
+  margin-top:5px;
+  font-size:12px;
+  border:1px solid grey;
+  border-radius:5px;
+  padding:0 1px;
+}
 .user {
   width: 100%;
   height: 100%;
@@ -92,6 +92,7 @@ export default class User extends wepy.component {
   .blogs {
     float: left;
     width: 100%;
+    margin-top:40px;
 
     .item-body {
       width: 100%;
@@ -105,7 +106,6 @@ export default class User extends wepy.component {
         float: left;
         width: 100%;
         font-size: 16px;
-        line-height: 28px;
         color: #333;
         text-align: justify;
       }
@@ -126,8 +126,6 @@ export default class User extends wepy.component {
 
       .item-location {
         float: left;
-        margin-top: 5px;
-        width: 250px;
         height: 24px;
 
         .location-icon {
