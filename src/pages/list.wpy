@@ -2,7 +2,7 @@
   <view class="container">
     <view class="main-list">
       <customswiper />
-      <clist :list.sync="list"></clist>
+      <clist />
     </view>
   </view>
 </template>
@@ -10,70 +10,18 @@
 <script>
 import wepy from 'wepy'
 import clist from '../components/clist'
-import { dummy } from '../dummyData'
 import Customswiper from '../components/swiper'
 
 export default class List extends wepy.page {
-  data = {
-    list: [],
-    page: 1
-  }
   components = {
     clist: clist,
     customswiper: Customswiper
   }
-  onLoad() {
-    this.onComponentLoad()
+  onPullDownRefresh () {
+    this.$invoke('clist', 'onPullDownRefresh')
   }
-
-  async onComponentLoad () {
-    await this.loadData()
-    // this.$apply()
-  }
-
-  // async onReload () {
-  //   this.page = 1
-  //   await this.loadData()
-  //   this.$apply()
-  // }
-
-  // async onPullDownRefresh () {
-  //   this.page = 1
-  //   await this.loadData()
-  // }
-
-  // async onReachBottom () {
-  //   this.page++
-  //   await this.loadData()
-  // }
-
-  async loadData () {
-    this.list = dummy.list
-
-    // try {
-    //   const listResponse = await http({
-    //     url: api.blog.list.url,
-    //     method: api.blog.list.method,
-    //     data: {
-    //       page: this.page,
-    //       version
-    //     }
-    //   })
-    //
-    //   if (this.page === 1) {
-    //     this.list = listResponse.data.data
-    //   } else {
-    //     this.list.push(...listResponse.data.data)
-    //   }
-    //
-    //   wepy.stopPullDownRefresh()
-    //   this.$apply()
-    // } catch (e) {
-    //   wepy.showModal({
-    //     title: '提示',
-    //     content: `加载列表失败，请截图本提示额。${e.message}`
-    //   })
-    // }
+  onReachBottom () {
+    this.$invoke('clist', 'onReachBottom')
   }
 }
 </script>

@@ -5,7 +5,7 @@
  * @Project: one_server
  * @Filename: dummyData.js
  * @Last modified by:   mymac
- * @Last modified time: 2017-10-31T19:01:20+08:00
+ * @Last modified time: 2017-11-01T13:45:13+08:00
  */
 
 
@@ -17,7 +17,6 @@ const dummy = {
   ],
   list: [
     {
-      like: 1,
       likeNum: 1,
       id: 1,
       isFixed: true,
@@ -47,7 +46,6 @@ const dummy = {
       commentNum: 12
     },
     {
-      like: 1,
       likeNum: 1,
       id: 1,
       isFixed: false,
@@ -76,7 +74,6 @@ const dummy = {
       commentNum: 12
     },
     {
-      like: 1,
       likeNum: 1,
       id: 1,
       isFixed: false,
@@ -103,7 +100,6 @@ const dummy = {
       commentNum: 12
     },
     {
-      like: 1,
       likeNum: 1,
       id: 1,
       isFixed: false,
@@ -128,7 +124,6 @@ const dummy = {
       commentNum: 12
     },
     {
-      like: 1,
       likeNum: 1,
       id: 1,
       isFixed: true,

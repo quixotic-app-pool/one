@@ -5,7 +5,7 @@
  * @Project: one_server
  * @Filename: api.js
  * @Last modified by:   mymac
- * @Last modified time: 2017-11-01T12:40:03+08:00
+ * @Last modified time: 2017-11-01T13:51:20+08:00
  */
 
 import {
@@ -14,7 +14,7 @@ import {
 
 let env = "-test" //-dev 或者 -test
 // production
-// const host = 'https://sujiefs.com/'
+// const host = ?
 // development
 const host = 'localhost:3000'
 
@@ -62,8 +62,6 @@ const updateBlogLikeNumber = (params) => wxRequest(params, host + "/api/updblogl
 
 //admin
 const banUser = (params) => wxRequest(params, host + "api/admin/banuser");
-const delComntByAdmin = (params) => wxRequest(params, host + "api/admin/delcommentbyadmin");
-const delBlogByAdmin = (params) => wxRequest(params, host + "api/admin/delblogbyadmin");
 
 
 module.exports = {
@@ -88,7 +86,5 @@ module.exports = {
   uploadBlog,
   updateBlogLikeNumber,
   // admin
-  banUser,
-  delComntByAdmin,
-  delBlogByAdmin
+  banUser
 }

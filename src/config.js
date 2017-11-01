@@ -1,3 +1,15 @@
+/**
+ * @Author: MichaelChen <mymac>
+ * @Date:   2017-10-24T08:56:07+08:00
+ * @Email:  teacherincafe@163.com
+ * @Project: one_server
+ * @Filename: config.js
+ * @Last modified by:   mymac
+ * @Last modified time: 2017-11-01T13:28:42+08:00
+ */
+
+
+
 // ENV
 const env = 'development' // 'development' or 'production'
 

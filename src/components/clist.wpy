@@ -95,23 +95,58 @@
 
 <script>
 import wepy from 'wepy'
-import http from '../utils/request'
-import { api } from '../config'
+import api from '../api/api'
 import floatingbtn from './floatingbtn'
+import { dummy } from '../dummyData'
 
 export default class Clist extends wepy.component {
-  props = {
-    list: Object
-  }
   data = {
+    list: [],
     sysWidth: wepy.getSystemInfoSync().windowWidth,
-    imgWith: 0
+    imgWith: 0,
+    page: 1
   }
   components = {
     floatingbtn: floatingbtn
   }
+  async onPullDownRefresh () {
+    this.page = 1
+    await this.loadData()
+  }
+  async onReachBottom () {
+    this.page++
+    await this.loadData()
+  }
   onLoad () {
     this.imgWith = (this.sysWidth - 130) / 3
+    this.onComponentLoad()
+  }
+  async loadData () {
+    this.list = dummy.list
+    // consider screened user info that should be filted out
+    // need to fetch user general info saved in localstorage
+    // TODO: step 1 done -> fetchBlogList
+    // try {
+    //   const res = await api.fetchBlogList({
+    //     query: {
+    //       id: '?'
+    //     }
+    //   });
+    //
+    //   if (this.page === 1) {
+    //     this.list = res.data
+    //   } else {
+    //     this.list.push(...res.data)
+    //   }
+    //
+    //   wepy.stopPullDownRefresh()
+    //   this.$apply()
+    // } catch (e) {
+    //   wepy.showModal({
+    //     title: '提示',
+    //     content: `Oops，加载失败，咋这么不给力~ `
+    //   })
+    // }
   }
   methods = {
     /**
@@ -144,29 +179,27 @@ export default class Clist extends wepy.component {
       // apply change
       this.$apply()
 
-      // commit request
-      try {
-        await http({
-          url: api.blog.like.url,
-          method: api.blog.like.method,
-          data: {
-            bid: id
-          }
-        })
-      } catch (e) {
-        // roll back when request failed
-        console.log(e)
-
-        list[idx].like = !list[idx].like
-
-        if (list[idx].like) {
-          list[idx].likeNum++
-        } else {
-          list[idx].likeNum--
-        }
-
-        this.$apply()
-      }
+      // TODO: step 1 done -> updateBlogLikeNumber
+      // try {
+      //     await api.updateBlogLikeNumber({
+      //       query: {
+      //         id: '?'
+      //       }
+      //     });
+      // } catch (e) {
+      //   // roll back when request failed
+      //   console.log(e)
+      //
+      //   list[idx].like = !list[idx].like
+      //
+      //   if (list[idx].like) {
+      //     list[idx].likeNum++
+      //   } else {
+      //     list[idx].likeNum--
+      //   }
+      //
+      //   this.$apply()
+      // }
     },
 
     /**
@@ -179,42 +212,118 @@ export default class Clist extends wepy.component {
         var option = ''
         if (user.isAuthor) {
           option = ['删除']
+          const { tapIndex } = await wepy.showActionSheet({
+            itemList: option
+          })
+          if (tapIndex === 0) {
+            const status = await wepy.showModal({
+              title: '删除',
+              content: '确定要删除这条树洞？',
+              cancelText: '不删了',
+              cancelColor: '#666666',
+              confirmText: '删除吧',
+              confirmColor: '#3CC51F'
+            })
+
+            if (status.confirm) {
+              this.list.splice(idx, 1)
+              this.$apply()
+
+              // TODO: step 1 done -> deleteComment
+              api.deleteComment({
+                query: {
+                  bid: '?'
+                }
+              })
+            }
+          }
         } else if (user.isAdmin) {
           option = ['删除', '全屏封印']
-        } else {
-          // other users
-          option = ['举报', '屏蔽']
-        }
-        const { tapIndex } = await wepy.showActionSheet({
-          itemList: option
-        })
-
-        // TODO: 删除状态
-        // TODO: 举报状态
-        // TODO: 用户屏蔽用户
-        // TODO: 管理员ban user
-
-        if (tapIndex === 0) {
-          const status = await wepy.showModal({
-            title: '删除',
-            content: '确定要删除这条树洞？',
-            cancelText: '不删了',
-            cancelColor: '#666666',
-            confirmText: '删除吧',
-            confirmColor: '#3CC51F'
+          const { tapIndex } = await wepy.showActionSheet({
+            itemList: option
           })
-
-          if (status.confirm) {
-            this.list.splice(idx, 1)
-            this.$apply()
-
-            await http({
-              url: api.blog.delete.url,
-              method: api.blog.delete.method,
-              data: {
-                bid: id
-              }
+          if (tapIndex === 0) {
+            const status = await wepy.showModal({
+              title: '删除',
+              content: '确定要删除这条树洞？',
+              cancelText: '不删了',
+              cancelColor: '#666666',
+              confirmText: '删除吧',
+              confirmColor: '#3CC51F'
             })
+
+            if (status.confirm) {
+              this.list.splice(idx, 1)
+              this.$apply()
+
+              // TODO: step 1 done -> deleteComment
+              api.deleteComment({
+                query: {
+                  bid: '?'
+                }
+              })
+            }
+          } else if (tapIndex === 1) {
+            const status = await wepy.showModal({
+              title: '全屏封印',
+              content: '确定要封印TA吗？',
+              cancelText: '算了',
+              cancelColor: '#666666',
+              confirmText: '没错',
+              confirmColor: '#3CC51F'
+            })
+
+            if (status.confirm) {
+              // TODO: step 1 done -> banUser
+              api.banUser({
+                query: {
+                  bid: '?'
+                }
+              })
+            }
+          } else {
+              // other users
+            option = ['举报', '屏蔽']
+            const { tapIndex } = await wepy.showActionSheet({
+              itemList: option
+            })
+            if (tapIndex === 0) {
+              const status = await wepy.showModal({
+                title: '举报',
+                content: '确定要举报这个状态吗？',
+                cancelText: '算了',
+                cancelColor: '#666666',
+                confirmText: '坚决的很',
+                confirmColor: '#3CC51F'
+              })
+
+              if (status.confirm) {
+                // TODO: step 1 done -> reportBlog
+                api.reportBlog({
+                  query: {
+                    bid: '?'
+                  }
+                })
+              }
+            } else if (tapIndex === 1) {
+              const status = await wepy.showModal({
+                title: '屏蔽',
+                content: '不想再看到TA吗？',
+                cancelText: '算了',
+                cancelColor: '#666666',
+                confirmText: '已心冷',
+                confirmColor: '#3CC51F'
+              })
+
+              if (status.confirm) {
+                // TODO: step 1 done -> screenUser
+                api.screenUser({
+                  query: {
+                    bid: '?'
+                  }
+                })
+              }
+            }
           }
         }
       } catch (e) {
@@ -236,8 +345,10 @@ export default class Clist extends wepy.component {
     }
   }
 
-  onComponentLoad () {
+  async onComponentLoad () {
     // this.isTest = !Boolean(wepy.getStorageSync(`isInTest-${version}`))
+    await this.loadData()
+    this.$apply()
     this.$apply()
   }
 }
