@@ -76,8 +76,7 @@
 
 <script>
 import wepy from 'wepy'
-import { api } from '../config'
-import http from '../utils/request'
+import { api } from '../api/api'
 import sensitiveWordChecker from '../utils/sensitiveWordChecker'
 
 export default class NewBlog extends wepy.page {
@@ -201,32 +200,6 @@ export default class NewBlog extends wepy.page {
         return
       }
 
-      if (/自杀|不想活了/.test(this.content)) {
-        wepy.hideToast()
-        const status = await wepy.showModal({
-          title: '温馨提示',
-          content: '需要帮助？深圳 24 小时免费心理咨询热线：0755-28793123',
-          cancelText: '拨打热线',
-          cancelColor: '#3CC51F',
-          confirmText: '继续发送',
-          confirmColor: '#666666'
-        })
-
-        if (!status.confirm) {
-          await wepy.makePhoneCall({
-            phoneNumber: '0755-28793123'
-          })
-          return
-        } else {
-          wepy.showToast({
-            title: '发送中...',
-            icon: 'loading',
-            duration: 10000,
-            mask: true
-          })
-        }
-      }
-
       const pack = {
         content: this.content,
         isAnonymous: this.isAnonymous,
@@ -238,7 +211,7 @@ export default class NewBlog extends wepy.page {
       }
 
       // upload images
-      // 这边单独存储图片，这里应该有什么讲究
+      // TODO: 这边单独存储图片，这里应该有什么讲究
       if (this.images.length > 0) {
         try {
           for (let v of this.images) {
@@ -277,17 +250,18 @@ export default class NewBlog extends wepy.page {
       }
 
       // upload blog
+      // TODO: step 1 dne -> uploadBlog
       try {
-        await http({
-          url: api.blog.new.url,
-          method: api.blog.new.method,
-          data: pack
+        await api.uploadBlog({
+          query: {
+            id: '?'
+          }
         })
       } catch (e) {
         wepy.hideToast()
         wepy.showModal({
           title: '提示',
-          content: '发送树洞失败。请截图本提示，联系深大汪峰。' + e.message,
+          content: '发送失败。请截图本提示，联系泽铭：flyinghawker。',
           showCancel: false
         })
         return
@@ -300,9 +274,6 @@ export default class NewBlog extends wepy.page {
         duration: 1500,
         mask: true
       })
-
-      // save status
-      wepy.setStorageSync('isNeedReloadList', 'true')
 
       await wepy.navigateBack({
         delta: 1

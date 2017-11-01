@@ -32,8 +32,7 @@
 
 <script>
 import wepy from 'wepy'
-import { api } from '../config'
-import http from '../utils/request'
+import { api } from '../api/api'
 import { dummy } from '../dummyData'
 
 export default class User extends wepy.component {
@@ -45,29 +44,40 @@ export default class User extends wepy.component {
 
   async onLoad () {
     this.blogs = dummy.blogs
+    this.page = 1
+    await this.loadUserBLogs()
     this.$apply()
   }
 
+  async loadUserBLogs () {
+    // TODO: step 1 done -> fetchUserBlogs
+    try {
+      const res = await api.fetchUserBlogs({
+        query: {
+          id: '?',
+          page: this.page
+        }
+      })
+
+      if (this.page === 1) {
+        this.list = res.data
+      } else {
+        this.list.push(...res.data)
+      }
+
+      wepy.stopPullDownRefresh()
+      this.$apply()
+    } catch (e) {
+      wepy.showModal({
+        title: '提示',
+        content: `Oops，加载失败，咋这么不给力~ `
+      })
+    }
+  }
   methods = {
     async loadNext () {
-      try {
-        const { data } = await http({
-          method: api.user.blog.method,
-          url: `${api.user.blog.url}?page=${this.page + 1}`
-        })
-
-        if (data.data.length !== 0) {
-          this.page++
-
-          this.blogs.push(...data.data)
-          this.$apply()
-        }
-      } catch (e) {
-        wepy.showModal({
-          title: '提示',
-          content: `加载数据出错，请截图本提示额。${e.message}`
-        })
-      }
+      this.page++
+      await this.loadUserBLogs()
     }
   }
 }

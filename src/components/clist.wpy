@@ -202,11 +202,6 @@ export default class Clist extends wepy.component {
       // }
     },
 
-    /**
-     * 显示更多操作
-     * @param {Number} idx 点赞树洞的索引
-     * @param {Number} id  点赞树洞的 id
-    */
     async showMore (idx, id, user) {
       try {
         var option = ''
@@ -218,7 +213,7 @@ export default class Clist extends wepy.component {
           if (tapIndex === 0) {
             const status = await wepy.showModal({
               title: '删除',
-              content: '确定要删除这条树洞？',
+              content: '确定要删除这条状态吗？',
               cancelText: '不删了',
               cancelColor: '#666666',
               confirmText: '删除吧',
@@ -229,8 +224,8 @@ export default class Clist extends wepy.component {
               this.list.splice(idx, 1)
               this.$apply()
 
-              // TODO: step 1 done -> deleteComment
-              api.deleteComment({
+              // TODO: step 1 done -> deleteBlog
+              api.deleteBlog({
                 query: {
                   bid: '?'
                 }
@@ -245,7 +240,7 @@ export default class Clist extends wepy.component {
           if (tapIndex === 0) {
             const status = await wepy.showModal({
               title: '删除',
-              content: '确定要删除这条树洞？',
+              content: '确定要删除这条状态吗？',
               cancelText: '不删了',
               cancelColor: '#666666',
               confirmText: '删除吧',
@@ -256,8 +251,8 @@ export default class Clist extends wepy.component {
               this.list.splice(idx, 1)
               this.$apply()
 
-              // TODO: step 1 done -> deleteComment
-              api.deleteComment({
+              // TODO: step 1 done -> deleteBlog
+              api.deleteBlog({
                 query: {
                   bid: '?'
                 }

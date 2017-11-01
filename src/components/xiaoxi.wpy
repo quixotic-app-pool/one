@@ -38,8 +38,7 @@
 
 <script>
 import wepy from 'wepy'
-import { api } from '../config'
-import http from '../utils/request'
+import { api } from '../api/api'
 import { dummy } from '../dummyData'
 
 export default class Xiaoxi extends wepy.component {
@@ -49,11 +48,13 @@ export default class Xiaoxi extends wepy.component {
   }
   async onLoad() {
     this.page = 1
-    await this.reloadList()
+    await this.loadMessage()
   }
 
   async reloadList () {
+    // dummy data
     this.list = dummy.unreadMessages
+    await this.loadMessage()
     this.$apply()
   }
 
@@ -64,11 +65,18 @@ export default class Xiaoxi extends wepy.component {
      * @param {Number} nid notification id
      */
     jumpTo (bid, nid) {
-      http({
-        url: `${api.notifications.read.url}/${nid}`,
-        method: api.notifications.read.method
-      })
-
+      // set read
+      // TODO: step 1 done -> refreshNotificationBox/ set one as read
+      try {
+        api.refreshNotificationBox({
+          query: {
+            id: '?',
+            isRead: true
+          }
+        })
+      } catch (e) {
+        console.log('notifications set-read-true failed')
+      }
       wepy.navigateTo({
         url: `/pages/detail?id=${bid}`
       })
@@ -78,14 +86,20 @@ export default class Xiaoxi extends wepy.component {
      * 全部标记为已读
      */
     async markAllRead () {
-      // 这个只要刷新本地，set as read，当刷新的时候呼叫服务器并清洗掉已读的
-      http({
-        url: api.notifications.read.url,
-        method: api.notifications.read.method
-      })
-
+      // TODO: step 1 done -> refreshNotificationBox/ 全清！
+      try {
+        await api.refreshNotificationBox({
+          query: {
+            id: '?'
+          }
+        })
+      } catch (e) {
+        console.log('notifications clear failed')
+      }
       this.page = 1
-      await this.reloadList()
+      // all cleared
+      this.list = []
+      this.$apply()
     },
 
     /**
@@ -93,6 +107,16 @@ export default class Xiaoxi extends wepy.component {
      */
     async refresh () {
       // 刷新会清掉那些看过的message，即isunread为false的，有爽快的体验
+      // TODO: step 1 done -> refreshNotificationBox/ 清掉已读的
+      try {
+        await api.refreshNotificationBox({
+          query: {
+            id: '?'
+          }
+        })
+      } catch (e) {
+        console.log('notifications refresh failed')
+      }
       this.page = 1
       await this.reloadList()
     },
@@ -101,23 +125,33 @@ export default class Xiaoxi extends wepy.component {
      * 加载下一页
      */
     async loadNextPage () {
-      try {
-        const messages = await http({
-          url: `${api.notifications.messages.url}?page=${this.page + 1}`,
-          method: api.notifications.messages.method
-        })
-
-        if (messages.data.data.unreadMessages.length !== 0) {
-          this.page++
-          this.list.push(...messages.data.data.unreadMessages)
-          this.$apply()
+      this.page++
+      this.loadMessage()
+    }
+  }
+  async loadMessage () {
+    try {
+      // TODO: step 1 done -> fetchUnreadMessages
+      const data = await api.fetchUnreadMessages({
+        query: {
+          id: '?',
+          page: this.page
         }
-      } catch (e) {
-        wepy.showModal({
-          title: '提示',
-          content: `获取消息失败，请截图本提示额。${e.message}`
-        })
+      })
+
+      if (data.unreadMessages.length !== 0) {
+        if (this.list.length !== 0) {
+          this.list.push(...data.unreadMessages)
+        } else {
+          this.list = data.unreadMessages
+        }
+        this.$apply()
       }
+    } catch (e) {
+      wepy.showModal({
+        title: '提示',
+        content: `获取消息失败，请联系泽铭：flyinghawker。`
+      })
     }
   }
 }
@@ -131,7 +165,7 @@ export default class Xiaoxi extends wepy.component {
   position: relative;
   width: 100%;
   top: 40px;
-  // height: 100%;
+  height: 100%;
   overflow: hidden;
 
   .operations {

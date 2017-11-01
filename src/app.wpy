@@ -5,9 +5,9 @@ import 'wepy-async-function'
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/list',
-      'pages/new',
-      'pages/message',
+      // 'pages/list',
+      // 'pages/new',
+      // 'pages/message',
       'pages/detail'
     ],
     window: {

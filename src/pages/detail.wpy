@@ -49,15 +49,14 @@
         </view>
       </view>
     </view>
+    <!-- <comment :blog.sync="blog" @reloadDetail.user="fetchDetail"/> -->
     <comment :blog.sync="blog"/>
   </view>
 </template>
 
 <script>
 import wepy from 'wepy'
-import { api } from '../config'
-import http from '../utils/request'
-// import sensitiveWordChecker from '../utils/sensitiveWordChecker'
+// import { api } from '../api/api'
 import { dummy } from '../dummyData'
 import comment from '../components/comments'
 
@@ -70,13 +69,11 @@ export default class Detail extends wepy.page {
     blog: {},
     loading: true,
     placeholder: '写点评论...',
-    focusComment: false,
     disable: true,
     comment: '',
     isAnonymous: false,
     replyTo: '',
-    inputContent: '',
-    isTest: false
+    inputContent: ''
   }
   components= {
     comment: comment
@@ -95,35 +92,6 @@ export default class Detail extends wepy.page {
       })
     },
     /**
-     * 显示更多操作
-     * @param {Number} idx 点赞树洞的索引
-     * @param {Number} id  点赞树洞的 id
-    */
-    async showMore () {
-      try {
-        const { tapIndex } = await wepy.showActionSheet({
-          itemList: [
-            '删除'
-          ]
-        })
-
-        if (tapIndex === 0) {
-          await http({
-            url: api.blog.delete.url,
-            method: api.blog.delete.method,
-            data: {
-              bid: this.blog.id
-            }
-          })
-
-          await wepy.navigateBack({
-            delta: 1
-          })
-        }
-      } catch (e) {}
-    },
-
-    /**
      * 显示地图
      * @param {Float} latitude  纬度
      * @param {Float} longitude 经度
@@ -139,47 +107,58 @@ export default class Detail extends wepy.page {
 
   async onLoad (options) {
     this.loading = true
-    this.$apply()
     await this.fetchDetail(options.id)
-    this.focusComment = !!options.focusComment
-    // this.isTest = !Boolean(wepy.getStorageSync(`isInTest-${version}`))
     this.$apply()
   }
 
   async onPullDownRefresh () {
-    await this.fetchDetail(this.blog.id)
+    await this.moreComment(this.blog.id)
     wepy.stopPullDownRefresh()
     this.$apply()
   }
 
+  async moreComment () {
+    // TODO: step 1 done -> fetchBlogDetail 这边主要是更新comment
+    // try {
+    //   const moreComment = await api.fetchBlogDetail({
+    //     query: {
+    //       id: '?',
+    //       blogid: '?',
+    //       commentPage: 'commentPage'
+    //     }
+    //   })
+    //   this.loading = false
+    //   this.blog.comments.push(moreComment)
+    //
+    //   this.$apply()
+    // } catch (e) {
+    //   wepy.showModal({
+    //     title: '提示',
+    //     content: `Oops，加载失败，咋这么不给力~ `
+    //   })
+    // }
+  }
   async fetchDetail (id) {
     this.blog = dummy.blogDetail
     this.loading = false
     this.$apply()
-
-    // const raw = await http({
-    //   url: `${api.blog.detail.url}/${id}`,
-    //   method: api.blog.detail.method
-    // })
-    //
-    // if (raw.statusCode === 404) {
-    //   await wepy.showToast({
-    //     title: '树洞不存在',
-    //     icon: 'loading',
-    //     image: '../assets/svgs/warn.svg',
-    //     duration: 1500,
-    //     mask: true
+    // TODO: step 1 done -> fetchBlogDetail
+    // try {
+    //   const res = await api.fetchBlogDetail({
+    //     query: {
+    //       id: '?',
+    //       blogid: '?'
+    //     }
     //   })
-    //
-    //   setTimeout(async () => {
-    //     await wepy.navigateBack({
-    //       delta: 1
-    //     })
-    //   }, 1500)
-    // } else {
     //   this.loading = false
-    //   this.blog = raw.data.data
+    //   this.blog = res.data
+    //
     //   this.$apply()
+    // } catch (e) {
+    //   wepy.showModal({
+    //     title: '提示',
+    //     content: `Oops，加载失败，咋这么不给力~ `
+    //   })
     // }
   }
 }
