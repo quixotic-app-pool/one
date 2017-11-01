@@ -238,6 +238,7 @@ export default class NewBlog extends wepy.page {
       }
 
       // upload images
+      // 这边单独存储图片，这里应该有什么讲究
       if (this.images.length > 0) {
         try {
           for (let v of this.images) {

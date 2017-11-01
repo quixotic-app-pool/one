@@ -20,7 +20,7 @@
       <image src="../assets/icons/message.png" class="newBtn-icon newBtn-nav-icon"></image>
     </navigator>
     <navigator @tap="joinUs" animation="{{animationData4}}" class="newBtn newBtn-nav newBtn-nav4">
-      <text class="nb-title1">Join Us</text>
+      <text class="nb-title1">反馈</text>
       <image src="../assets/icons/joinus.png" class="newBtn-icon newBtn-nav-icon"></image>
     </navigator>
 </template>
@@ -41,8 +41,8 @@ export default class Floatingbtn extends wepy.component {
   methods = {
     joinUs () {
       wepy.showModal({
-        title: '加入我们',
-        content: `加入我们的团队，一起放飞梦想，请联系泽铭，微信： flyinghawker。`
+        title: '反馈&加入我们',
+        content: `任何疑问建议甚至想加入我们的团队，请联系泽铭，微信： flyinghawker。`
       })
     },
     longpress() {

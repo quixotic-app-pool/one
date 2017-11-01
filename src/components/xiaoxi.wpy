@@ -78,6 +78,7 @@ export default class Xiaoxi extends wepy.component {
      * 全部标记为已读
      */
     async markAllRead () {
+      // 这个只要刷新本地，set as read，当刷新的时候呼叫服务器并清洗掉已读的
       http({
         url: api.notifications.read.url,
         method: api.notifications.read.method

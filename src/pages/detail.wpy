@@ -94,61 +94,6 @@ export default class Detail extends wepy.page {
         urls: imageList
       })
     },
-
-    /**
-     * 点赞
-     * @param {Number} idx 点赞树洞的索引
-     * @param {Number} id  点赞树洞的 id
-     */
-    async like () {
-      this.blog.like = !this.blog.like
-
-      if (this.blog.like) {
-        this.blog.likeNum++
-      } else {
-        this.blog.likeNum--
-      }
-
-      // apply change
-      this.$apply()
-
-      // commit request
-      try {
-        const res = await http({
-          url: api.blog.like.url,
-          method: api.blog.like.method,
-          data: {
-            bid: this.blog.id
-          }
-        })
-
-        if (res.statusCode === 400) {
-          this.blog.like = !this.blog.like
-
-          if (this.blog.like) {
-            this.blog.likeNum++
-          } else {
-            this.blog.likeNum--
-          }
-
-          this.$apply()
-        }
-      } catch (e) {
-        // roll back when request failed
-        console.log(e)
-
-        this.blog.like = !this.blog.like
-
-        if (this.blog.like) {
-          this.blog.likeNum++
-        } else {
-          this.blog.likeNum--
-        }
-
-        this.$apply()
-      }
-    },
-
     /**
      * 显示更多操作
      * @param {Number} idx 点赞树洞的索引
