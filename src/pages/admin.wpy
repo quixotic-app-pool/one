@@ -1,0 +1,26 @@
+<template>
+  <picker class="new-picker" bindchange="bindPickerChange" value="{{pickerIndex}}" range="{{authorityarray}}">
+   <view class="picker">
+     分类：{{authorityarray[pickerIndex]}}
+   </view>
+  </picker>
+</template>
+
+<script>
+import wepy from 'wepy'
+import Tab from '../components/tab'
+import Xiaoxi from '../components/xiaoxi'
+import Dongtai from '../components/dongtai'
+
+export default class Admin extends wepy.page {
+  data = {
+    list: [],
+    page: 1,
+    authorityarray: []
+  }
+  onLoad() {
+    //admin
+    this.authorityarray = ['我删除的评论', '我删除的状态', '我封印的用户']
+  }
+}
+</script>

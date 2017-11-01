@@ -5,7 +5,7 @@
  * @Project: one_server
  * @Filename: api.js
  * @Last modified by:   mymac
- * @Last modified time: 2017-11-01T12:06:35+08:00
+ * @Last modified time: 2017-11-01T12:37:29+08:00
  */
 
 import {
@@ -69,8 +69,12 @@ const banUser = (params) => wxRequest(params, host + "api/admin/banuser");
 const freeUser = (params) => wxRequest(params, host + "api/admin/freeuser");
 // delete comment by admin
 const delComntByAdmin = (params) => wxRequest(params, host + "api/admin/delcommentbyadmin");
+//  recover comnt
+const recoverComnt = (params) => wxRequest(params, host + "api/admin/recovercomnt");
 // delete blog by admin
 const delBlogByAdmin = (params) => wxRequest(params, host + "api/admin/delblogbyadmin");
+// recover Blog
+const recoverBlog = (params) => wxRequest(params, host + "api/admin/recoverblog");
 // fetch comment deleted by admin
 const fetchComntDelByAdmin = (params) => wxRequest(params, host + "api/admin/comntdelbyadmin");
 // fetch blog deleted by admin
@@ -83,6 +87,8 @@ const unreportBLog = (params) => wxRequest(params, host + "api/admin/unrepblog")
 const unreportComment = (params) => wxRequest(params, host + "api/admin/unrepcomnt");
 
 //superadmin
+// fetch all admin
+const fetchAllAdmin = (params) => wxRequest(params, host + "api/super/fetechalladmin");
 //comntdelbyalladmin
 const comntDelByAllAdmin = (params) => wxRequest(params, host + "api/super/comntdelbyalladmin");
 // blogdelbyalladmin
@@ -91,12 +97,8 @@ const blogDelByAllAdmin = (params) => wxRequest(params, host + "api/super/blogde
 const banUserByAllAdmin = (params) => wxRequest(params, host + "api/super/banuserbyalladmin");
 // cfdelcomnt
 const cfDelComnt = (params) => wxRequest(params, host + "api/super/cfdelcomnt");
-// recovercomnt
-const recoverComnt = (params) => wxRequest(params, host + "api/super/recovercomnt");
 // cfdelblog
 const cfDelBlog = (params) => wxRequest(params, host + "api/super/cfdelblog");
-// recoverblog
-const recoverBlog = (params) => wxRequest(params, host + "api/super/recoverblog");
 // assignadmin
 const assignAdmin = (params) => wxRequest(params, host + "api/super/assignadmin");
 // removeadmin
@@ -127,21 +129,22 @@ module.exports = {
   // admin
   banUser,
   freeUser,
+  fetchUserBannedByAdmin,
   delComntByAdmin,
   delBlogByAdmin,
   fetchComntDelByAdmin,
+  recoverComnt,
   fetchBlogDelByAdmin,
-  fetchUserBannedByAdmin,
+  recoverBlog,
   unreportBLog,
   unreportComment,
   // superadmin
+  fetechalladmin,
   comntDelByAllAdmin,
   blogDelByAllAdmin,
   banUserByAllAdmin,
   cfDelComnt,
-  recoverComnt,
   cfDelBlog,
-  recoverBlog,
   assignAdmin,
   removeAdmin
 }
