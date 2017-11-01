@@ -5,7 +5,7 @@
  * @Project: one_server
  * @Filename: dummyData.js
  * @Last modified by:   mymac
- * @Last modified time: 2017-10-31T18:16:42+08:00
+ * @Last modified time: 2017-10-31T19:01:20+08:00
  */
 
 
@@ -293,6 +293,7 @@ const dummy = {
   ],
   blogDetail: {
     id: 1,
+    tag: '校园新鲜事',
     isAuthor: true,
     commentNum: 12,
     likeNum: 10,

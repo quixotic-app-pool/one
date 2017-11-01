@@ -178,13 +178,13 @@ export default class Clist extends wepy.component {
       try {
         var option = ''
         if (user.isAdmin | user.isAuthor) {
-          option = '删除'
+          option = ['删除']
         } else {
           // other users
-          option = '举报'
+          option = ['举报','屏蔽']
         }
         const { tapIndex } = await wepy.showActionSheet({
-          itemList: [ option ]
+          itemList: option
         })
 
         // TODO: 下面是关于删除的操作，现在加上了举报选项，需要调整

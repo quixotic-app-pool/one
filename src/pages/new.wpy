@@ -37,7 +37,7 @@
       <!-- image choosing btn -->
       <view
         class="choose-image-btn"
-        wx:if="{{ images.length < 6 }}"
+        wx:if="{{ images.length < 9 }}"
         bindtap="chooseImage">
         <image
           class="choose-image-btn-icon"
@@ -94,7 +94,7 @@ export default class NewBlog extends wepy.page {
     latitude: '',
     longitude: '',
     disabled: true,
-    categoryarray: ['其他', '情感', '兼职', '失物招领', '学长学姐来帮忙', '活动', '社团', '考研', '找对象'],
+    categoryarray: ['其他', '校内新鲜事', '情感', '兼职', '失物招领', '学长学姐来帮忙', '组团活动', '社团', '找对象', '红娘', '考研'],
     pickerIndex: 0
   }
 

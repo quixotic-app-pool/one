@@ -19,6 +19,9 @@
               src="{{ blog.user.gender === 'male' ? '../assets/icons/male.png' : '../assets/icons/female.png' }}">
             </image>
           </view>
+          <view class="list-category">
+            <text>{{blog.tag}}</text>
+          </view>
           <text class="time-and-from">{{ blog.time }}</text>
         </view>
       </view>
@@ -238,6 +241,13 @@ export default class Detail extends wepy.page {
 </script>
 
 <style lang="less">
+.list-category text {
+  font-size:12px;
+  opacity:0.7;
+  border:1px solid gold;
+  border-radius:4px;
+  padding: 0 2px;
+}
 .page {
   width: 100%;
   padding-bottom: 60px;
