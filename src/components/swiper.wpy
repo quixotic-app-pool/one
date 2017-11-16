@@ -11,7 +11,7 @@
 <script>
 import wepy from 'wepy'
 import { dummy } from '../dummyData'
-import api from '../api/api'
+// import api from '../api/api'
 
 export default class Customswiper extends wepy.component {
   data = {
@@ -21,16 +21,16 @@ export default class Customswiper extends wepy.component {
   async onLoad() {
     this.imgUrls = dummy.swiperImgUrls
     // TODO: step 1 done -> fetchSwiperImgUrls
-    try {
-      const res = await api.fetchSwiperImgUrls({
-        query: {
-          id: '?'
-        }
-      })
-      this.imgUrls = res.imgUrls
-    } catch (e) {
-      console.log('fail to fetchSwiperImgUrls')
-    }
+    // try {
+    //   const res = await api.fetchSwiperImgUrls({
+    //     query: {
+    //       id: '?'
+    //     }
+    //   })
+    //   this.imgUrls = res.data.imgUrls
+    // } catch (e) {
+    //   console.log('fail to fetchSwiperImgUrls')
+    // }
   }
 }
 </script>

@@ -47,11 +47,11 @@
     </view>
     <view class="isanonymous">
       <view
-        class="location {{ location === '' ? '' : 'location-active' }}"
+        class="location {{ locationName === '' ? '' : 'location-active' }}"
         @tap.stop="chooseLocation"
         @longtap.stop="removeLocation">
         <image class="location-icon" src="../assets/svgs/location.svg"></image>
-        <text>{{ location === '' ? '点击添加位置' : location }}</text>
+        <text>{{ locationName === '' ? '点击添加位置' : locationName }}</text>
       </view>
       <view
         class="isanonymous-btn {{ isAnonymous ? 'anonymous' : 'named' }}"
@@ -76,7 +76,7 @@
 
 <script>
 import wepy from 'wepy'
-import { api } from '../api/api'
+import api  from '../api/api'
 import sensitiveWordChecker from '../utils/sensitiveWordChecker'
 
 export default class NewBlog extends wepy.page {
@@ -89,7 +89,7 @@ export default class NewBlog extends wepy.page {
     images: [],
     isAnonymous: true,
     device: '',
-    location: '',
+    locationName: '',
     latitude: '',
     longitude: '',
     disabled: true,
@@ -113,6 +113,7 @@ export default class NewBlog extends wepy.page {
       if (e.detail.value.length < 120) {
         this.content = e.detail.value
       }
+      this.disabled = e.detail.value === ''
     },
 
     /**
@@ -120,7 +121,7 @@ export default class NewBlog extends wepy.page {
      */
     async chooseImage () {
       const { tempFilePaths } = await wepy.chooseImage({
-        count: 6 - this.images.length,
+        count: 3 - this.images.length,
         sizeType: 'compressed'
       })
       this.images.push(...tempFilePaths)
@@ -154,7 +155,7 @@ export default class NewBlog extends wepy.page {
     async chooseLocation () {
       try {
         const { name, latitude, longitude } = await wepy.chooseLocation()
-        this.location = name
+        this.locationName = name
         this.latitude = latitude
         this.longitude = longitude
         this.$apply()
@@ -200,34 +201,38 @@ export default class NewBlog extends wepy.page {
         return
       }
 
+      // TODO: need to add UID
       const pack = {
+        uid: '2312321321312321312312',
+        category: this.categoryarray[this.pickerIndex],
         content: this.content,
         isAnonymous: this.isAnonymous,
         images: [],
         device: this.device,
-        location: this.location,
+        locationName: this.locationName,
         latitude: this.latitude,
         longitude: this.longitude
       }
 
       // upload images
-      // TODO: 这边单独存储图片，这里应该有什么讲究
       if (this.images.length > 0) {
         try {
           for (let v of this.images) {
             const r = await wepy.uploadFile({
-              url: api.blog.imageUpload.url,
+              url: 'http://127.0.0.1:8080/api/upload/image',
               filePath: v,
               name: 'file',
               formData: {
                 _session: wepy.getStorageSync('_session')
+              },
+              success: function(res) {
+                consolo.log('image has been successfully saved in server. Congrats!')
               }
             })
 
             r.data = JSON.parse(r.data)
-
-            if (r.data.errcode === 0 && r.data.data.url) {
-              pack.images.push(r.data.data.url)
+            if(r.data.img) {
+              pack.images.push(r.data.img)
             } else {
               wepy.hideToast()
               wepy.showModal({
@@ -235,28 +240,36 @@ export default class NewBlog extends wepy.page {
                 content: '服务器错误，上传图片失败。请重试~：）' + r.data.errmsg,
                 showCancel: false
               })
-              return
             }
           }
         } catch (e) {
           wepy.hideToast()
           wepy.showModal({
             title: '提示',
-            content: '服务器错误，上传图片失败。请重试或截图本提示联系深大汪峰。' + e.message,
+            content: '服务器错误，上传图片失败。' + e.message,
             showCancel: false
           })
           return
         }
       }
+      console.log("pack: " + JSON.stringify(pack))
 
       // upload blog
       // TODO: step 1 dne -> uploadBlog
       try {
-        await api.uploadBlog({
+        const res = await api.uploadBlog({
           query: {
-            id: '?'
-          }
-        })
+            pack: pack
+          },
+          method: 'POST'
+         })
+        // wepy.hideToast()
+        // await wepy.showToast({
+        //   title: '发送成功！',
+        //   icon: 'success',
+        //   duration: 1500,
+        //   mask: true
+        // })
       } catch (e) {
         wepy.hideToast()
         wepy.showModal({
@@ -264,20 +277,13 @@ export default class NewBlog extends wepy.page {
           content: '发送失败。请截图本提示，联系泽铭：flyinghawker。',
           showCancel: false
         })
-        return
+        return e
       }
 
-      wepy.hideToast()
-      await wepy.showToast({
-        title: '发送成功！',
-        icon: 'success',
-        duration: 1500,
-        mask: true
-      })
-
-      await wepy.navigateBack({
-        delta: 1
-      })
+      //
+      // await wepy.navigateBack({
+      //   delta: 1
+      // })
     }
   }
 
@@ -306,7 +312,6 @@ export default class NewBlog extends wepy.page {
     min-height: 180px;
     background: #FFF;
     font-size: 16px;
-    line-height: 36px;
   }
 
   .image-list {

@@ -117,9 +117,9 @@ export default class Clist extends wepy.component {
     this.page++
     await this.loadData()
   }
-  onLoad () {
+  async onLoad () {
     this.imgWith = (this.sysWidth - 130) / 3
-    this.onComponentLoad()
+    await this.loadData()
   }
   async loadData () {
     this.list = dummy.list
@@ -338,13 +338,6 @@ export default class Clist extends wepy.component {
         scale: 28
       })
     }
-  }
-
-  async onComponentLoad () {
-    // this.isTest = !Boolean(wepy.getStorageSync(`isInTest-${version}`))
-    await this.loadData()
-    this.$apply()
-    this.$apply()
   }
 }
 </script>

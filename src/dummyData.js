@@ -5,7 +5,7 @@
  * @Project: one_server
  * @Filename: dummyData.js
  * @Last modified by:   mymac
- * @Last modified time: 2017-11-01T13:45:13+08:00
+ * @Last modified time: 2017-11-02T15:07:12+08:00
  */
 
 
@@ -62,7 +62,7 @@ const dummy = {
       user: {
         isAdmin: true,
         isAuthor: true,
-        avatar: '.../assets/svgs/avatar/avatar.svg',
+        avatar: '../assets/svgs/avatar/avatar.svg',
         nickname: 'michale chen and uncle john',
         gender: 'female'
       },
@@ -299,6 +299,7 @@ const dummy = {
         openid: 'xsf1',
         isAdmin: true,
         isanonymous: false,
+        time: '一千年以前',
         cid: 1,
         gender: 'male',
         avatar: '../assets/svgs/avatar/avatar.svg',
@@ -309,6 +310,7 @@ const dummy = {
         openid: 'xsf1',
         isAdmin: true,
         isanonymous: true,
+        time: '一千年以前',
         cid: 1,
         gender: 'female',
         avatar: '../assets/svgs/avatar/avatar.svg',
