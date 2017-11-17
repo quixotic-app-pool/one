@@ -5,7 +5,7 @@
  * @Project: one_server
  * @Filename: api.js
  * @Last modified by:   mymac
- * @Last modified time: 2017-11-16T15:40:10+08:00
+ * @Last modified time: 2017-11-17T16:41:49+08:00
  */
 
 import {
@@ -16,7 +16,12 @@ let env = "-test" //-dev 或者 -test
 // production
 // const host = ?
 // development
-const host = 'http://127.0.0.1:8080'
+// const host = 'http://127.0.0.1:8080'
+const host = 'https://www.takeiteasydude.com'
+
+
+//wechat
+const wechatActivity = (params) => wxRequest(params, host + "/api/wechatactivity");
 
 
 // NOTIFICATION
@@ -50,6 +55,8 @@ const banUser = (params) => wxRequest(params, host + "/api/admin/banuser");
 
 
 module.exports = {
+  //wechatActivity
+  wechatActivity,
   // notification
   fetchUnreadMessages,
   refreshNotificationBox,

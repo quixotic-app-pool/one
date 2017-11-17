@@ -76,7 +76,7 @@
 
 <script>
 import wepy from 'wepy'
-import api  from '../api/api'
+import api from '../api/api'
 import sensitiveWordChecker from '../utils/sensitiveWordChecker'
 
 export default class NewBlog extends wepy.page {
@@ -226,12 +226,12 @@ export default class NewBlog extends wepy.page {
                 _session: wepy.getStorageSync('_session')
               },
               success: function(res) {
-                consolo.log('image has been successfully saved in server. Congrats!')
+                console.log('image has been successfully saved in server. Congrats!')
               }
             })
 
             r.data = JSON.parse(r.data)
-            if(r.data.img) {
+            if (r.data.img) {
               pack.images.push(r.data.img)
             } else {
               wepy.hideToast()
@@ -252,24 +252,34 @@ export default class NewBlog extends wepy.page {
           return
         }
       }
-      console.log("pack: " + JSON.stringify(pack))
 
       // upload blog
-      // TODO: step 1 dne -> uploadBlog
       try {
         const res = await api.uploadBlog({
           query: {
             pack: pack
           },
           method: 'POST'
-         })
-        // wepy.hideToast()
-        // await wepy.showToast({
-        //   title: '发送成功！',
-        //   icon: 'success',
-        //   duration: 1500,
-        //   mask: true
-        // })
+        })
+        // console.log('data back from new blog: ' + JSON.stringify(res))
+        wepy.hideToast()
+        await wepy.showToast({
+          title: '发送成功！',
+          icon: 'success',
+          duration: 1500,
+          mask: true
+        })
+
+        if (res.data) {
+          var blogId = res.data._id
+          await wepy.redirectTo({
+            url: './detail?blogId=' + blogId
+          })
+        } else {
+          await wepy.navigateBack({
+            delta: 1
+          })
+        }
       } catch (e) {
         wepy.hideToast()
         wepy.showModal({
@@ -279,11 +289,6 @@ export default class NewBlog extends wepy.page {
         })
         return e
       }
-
-      //
-      // await wepy.navigateBack({
-      //   delta: 1
-      // })
     }
   }
 

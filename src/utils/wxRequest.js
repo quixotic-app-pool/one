@@ -5,7 +5,7 @@
  * @Project: one_server
  * @Filename: wxRequest.js
  * @Last modified by:   mymac
- * @Last modified time: 2017-11-16T17:31:16+08:00
+ * @Last modified time: 2017-11-17T08:27:25+08:00
  */
 
 
@@ -19,26 +19,29 @@ import util from './util';
 const TIMESTAMP = util.getCurrentTime()
 // const SIGN = md5.hex_md5((TIMESTAMP + API_SECRET_KEY).toLowerCase())
 
-const wxRequest = (params = {}, url) => {
+const wxRequest = async (params = {}, url) => {
 
-    console.log('inside wxRequest!')
     wepy.showToast({
         title: '加载中',
         icon: 'loading'
     });
+    // console.log('kong de?: ' + JSON.stringify(params.query))
     var data = params.query || {};
     // data.sign = SIGN;
-    data.time = TIMESTAMP;
-    console.log("data: " + JSON.stringify(data))
-    wepy.request({
+    // data.time = TIMESTAMP;
+    const res = await wepy.request({
         url: url,
         method: params.method || 'GET',
-        data: data
-    }).then(function(res){
-      console.log('from server: ' + JSON.stringify(res))
-      wepy.hideToast();
-      return res;
+        data: data,
+        header: { 'Content-Type': 'application/json' }
+    }).then(function(err, respond){
+      if(err) {
+        return err
+      }
+      return respond;
     });
+    wepy.hideToast();
+    return res;
 };
 
 
